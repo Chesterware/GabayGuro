@@ -1,0 +1,342 @@
+body {
+    overflow: auto;
+    margin-left: 200px;
+    background-color: #FAF9F6;
+    font-family: Arial, Helvetica, sans-ser
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background-color: #F5F5DC;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Admin Name Style */
+.admin-name {
+    font-size: 1.5rem;
+    color: #003153;
+    font-weight: bold; 
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: Arial, sans-serif;
+    }
+
+/* Tagapab-Gabay Label Style */
+.sidebar-label {
+    font-size: 1rem;
+    color: #8B8B8B;
+    text-align: center;
+    margin-bottom: 0;
+    font-family: Arial, sans-serif;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #FFFFFF;
+    border: 2px solid #003153;
+    color: #003153;
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+}
+
+.btn.active {
+    background-color: #003153;
+    color: white;
+    font-weight: bold;
+}
+
+.btn i {
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.btn.active i {
+    color: #fff;
+}
+
+.btn:hover {
+    background-color: #002440;
+    color: #fff;
+    border-color: #002440;
+}
+
+.btn a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.separator {
+    margin: 10px 0;
+    border: none;
+    border-top: 2px solid #003153;
+}
+
+.logout-btn {
+    background-color: #FF000D;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    margin-bottom: auto;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #cc0000;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        padding: 15px 10px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .sidebar-label {
+        font-size: 1.25rem;
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    gap: 0;
+    padding-left: 50px;
+}
+
+/* Header button */
+.header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    margin-top: 20px;
+
+}
+
+/* Header Text */
+.label-top {
+    font-size: 2rem;
+    color: #003153;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+#addUserBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    background-color: #003153; 
+    border-radius: 5px; 
+    color: #fff; 
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+#addUserBtn i {
+    font-size: 20px; 
+    margin-right: 10px; 
+    color: #fff;
+}
+
+.register-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    width: 450px; 
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.register-content {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+    flex-grow: 1; 
+    align-items: center;
+}
+
+.register-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 250px;
+    align-items: center; 
+    align-items: stretch;
+}
+
+label {
+    margin-bottom: -15px;
+    color: #003153;
+    font-size: 12px;
+    align-items: flex-start;
+
+    width: 100%;
+}
+
+/* Input Fields */
+input {
+    padding: 15px 10px;
+    border: 2px solid #003153;
+    border-radius: 5px;
+    font-size: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 5px;
+    height: 20px;
+}
+
+.name-fields {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.first-name, .middle-initial {
+    flex: 1;
+}
+
+.first-name input, .middle-initial input {
+    width: 100%;
+}
+
+/* Action Buttons (Register & Cancel) */
+.cancelRegister {
+    display: flex;
+    flex-direction: row;  
+    gap: 10px;
+    margin-top: 20p;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+/* Register Button Styles */
+.register-btn, .cancelReg-btn {
+    font-size: 13px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 180px; 
+    height: 40px;
+    text-align: center; 
+}
+
+/* Register Button */
+.register-btn {
+    
+    background-color: #003153;
+    color: white;
+    border: none;
+}
+
+.register-btn:hover {
+    background-color: #002439;
+}
+
+/* Cancel Button */
+.cancelReg-btn {
+    background-color: transparent;
+    font-weight: bold;
+    color: #003153;
+    border: none;
+}
+
+.cancelReg-btn:hover {
+    background-color: transparent;
+    border: 2px solid #003153;
+    border-radius: 5px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .register-container {
+        width: 90%;
+        max-width: 90%;
+        margin: 20px;
+    }
+
+    .register-content {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .register-fields {
+        min-width: 100%;
+    }
+
+    .register-btn, .cancelReg-btn {
+        font-size: 12px;
+        padding: 8px 15px;
+        width: 100%;
+    }
+
+    .cancelRegister {
+        flex-direction: column;
+        align-items: center; 
+    }
+}
