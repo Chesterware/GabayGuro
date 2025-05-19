@@ -47,7 +47,7 @@ if (!isset($_SESSION['admin_id'])) {
             <button type="submit" class="btn"><i class="fas fa-check-circle"></i>Tutor Verification</button>
         </form>
 
-        <form action="admin_dashboard.php" method="GET">
+        <form action="admin_profile.php.php" method="GET">
             <button type="submit" class="btn active"><i class="fas fa-user"></i>My Profile</button>
         </form>
 

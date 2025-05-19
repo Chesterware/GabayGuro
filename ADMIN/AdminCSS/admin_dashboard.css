@@ -1,0 +1,126 @@
+.chart-and-interpretation {
+    display: flex;
+    gap: 30px;
+    margin: 130px 20px 0 250px;
+    transition: all 0.3s ease;
+}
+
+body.sidebar-collapsed .chart-and-interpretation {
+    margin-left: 20px;
+}
+
+.chart-container {
+    width: 1200px;
+    height: 600px;
+    padding: 30px 40px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.chart-header h3 {
+    margin-top: 25px;
+    font-size: 26px;
+    color: #003153;
+    font-weight: normal;
+    white-space: nowrap;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+}
+
+.filter-form label {
+    font-size: 16px;
+    color: #003153;
+    font-weight: 600;
+    user-select: none;
+}
+
+.filter-form select {
+    min-width: 120px;
+    padding: 8px 14px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #003153;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.filter-form select:hover,
+.filter-form select:focus {
+    box-shadow: 0 0 8px rgba(0, 49, 83, 0.4);
+}
+
+#subjectChart {
+    width: 100%;
+    height: 350px;
+    border-radius: 12px;
+    display: block;
+}
+
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+
+.summary-grid > .summary-card {
+  background-color: #FAF9F6;
+  border: 2px solid #003153;
+  border-radius: 8px;
+  padding: 8px 20px;
+  box-shadow: 0 4px 12px rgba(0, 90, 153, 0.12);
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+  transition: background-color 0.3s ease;
+}
+
+.summary-card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.summary-card p,
+.subject-list {
+  color: #003153;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.subject-list {
+  list-style-type: disc;
+  padding-left: 1.2rem;
+  margin: 8px 0 0 0;
+}
+
+.subject-list li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}

@@ -35,7 +35,7 @@ foreach ($user_types as $user_type) {
             $_SESSION['last_name'] = $user['last_name'];
 
             if (isset($_SESSION['admin_id'])) {
-                header("Location: /iskol4rx/ADMIN/AdminPHP/manageUser.php");
+                header("Location: /iskol4rx/ADMIN/AdminHTML/admin_dashboard.php");
             } elseif (isset($_SESSION['tutor_id'])) {
                 header("Location: /iskol4rx/tutor/TutorHTML/ratings_review.php");
             } elseif (isset($_SESSION['learner_id'])) {

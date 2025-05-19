@@ -1,0 +1,156 @@
+.status-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 130px 20px 0 250px;
+    flex-wrap: wrap;
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-collapsed .status-buttons {
+    margin-left: 20px;
+}
+
+.status-buttons a {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #003153;
+    font-weight: 600;
+    border: 2px solid #003153;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.status-buttons a:not(.active):hover {
+    background-color: #003153;
+    color: #FFFFFF;
+    border-color: #003153;
+}
+
+.status-buttons a.active {
+    background-color: #003153;
+    color: #FFFFFF;
+    border: 2px solid #003153;
+}
+
+body.sidebar-collapsed .status-buttons a {
+    padding: 10px 12px;
+}
+
+@media (max-width: 600px) {
+    .status-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.tutor-section {
+    margin: 40px 20px 40px 250px;
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-collapsed .tutor-section {
+    margin-left: 20px;
+}
+
+.status-heading {
+    font-size: 24px;
+    color: #003153;
+    margin-bottom: 15px;
+}
+
+.tutor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 2fr));
+    gap: 20px;
+}
+
+.tutor-card {
+    border: 2px solid #003153;
+    border-radius: 10px;
+    padding: 15px 20px;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.tutor-card h4 {
+    margin: 0;
+    color: #003153;
+}
+
+.tutor-name {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #003153;
+}
+
+.tutor-info {
+  display: flex;
+
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+.tutor-info .label {
+white-space: nowrap;  
+  flex: 0 0 180px;
+  font-weight: normal;
+  color: #003153;
+}
+
+.tutor-info strong {
+  flex: 1;
+  color: #003153;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+
+.verify-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.verify-btn {
+    flex: 1;
+    padding: 8px 0;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.verify-btn[data-status="verified"] {
+    background-color: #003153;
+    color: white;
+    border: 2px solid #003153;
+}
+
+.verify-btn[data-status="unverified"] {
+    background-color: transparent;
+    color: #003153;
+    border: 2px solid #003153;
+}
+
+.verify-btn[data-status="verified"]:hover {
+    background-color: #001f33;
+    border-color: #001f33;
+}
+
+.verify-btn[data-status="unverified"]:hover {
+    background-color: #003153;
+    color: white;
+    border-color: #003153;
+}
