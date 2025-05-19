@@ -1,6 +1,11 @@
 <?php
 require_once 'db_connection.php';
 
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../../login.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $tutor_id = $_POST['tutor_id'] ?? null;
     $new_status = $_POST['new_status'] ?? null;

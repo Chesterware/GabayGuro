@@ -2,7 +2,7 @@
 require_once '../AdminPHP/admin_name.php';
 
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: login.php");
+    header("Location: ../../login.php");
     exit();
 }
 ?>

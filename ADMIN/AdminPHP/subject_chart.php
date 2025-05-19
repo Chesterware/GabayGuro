@@ -2,7 +2,7 @@
 require_once '../AdminPHP/db_connection.php';
 
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: login.php");
+    header("Location: ../../login.php");
     exit();
 }
 

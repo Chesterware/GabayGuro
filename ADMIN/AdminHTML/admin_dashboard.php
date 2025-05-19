@@ -3,7 +3,7 @@ require_once '../AdminPHP/admin_name.php';
 require_once '../AdminPHP/subject_chart.php';
 
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: login.php");
+    header("Location: ../../login.php");
     exit();
 }
 ?>
