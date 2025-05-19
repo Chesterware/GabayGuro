@@ -23,6 +23,7 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gabay Guro - Login</title>
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400&family=Raleway:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/iskol4rx/styles/login.css">
 </head>

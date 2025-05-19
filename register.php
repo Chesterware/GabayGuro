@@ -1,8 +1,6 @@
 <?php
 require_once 'api/register.php';
 
-
-
 if ($step === 'role') {
 ?>
 
@@ -12,6 +10,7 @@ if ($step === 'role') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Role - GABAYGURO</title>
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/iskol4rx/styles/select_role.css">
 </head>
@@ -36,6 +35,9 @@ if ($step === 'role') {
                 <small>I want to teach students</small>
             </a>
         </div>
+        <div class="login-prompt">
+            <label>Already have an account?</label><a href="login.php" class="login-link">LOGIN</a>
+        </div>
     </div>
 </body>
 </html>
@@ -52,6 +54,7 @@ if ($step === 'credentials') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - GABAYGURO</title>
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400;500&family=Raleway:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/iskol4rx/styles/register.css">
     <style>

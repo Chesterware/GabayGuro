@@ -8,6 +8,7 @@ require_once 'api/register_learner.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learner Registration - GABAYGURO</title>
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400;500&family=Raleway:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/iskol4rx/styles/register_learner.css">
 </head>

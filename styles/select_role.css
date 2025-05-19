@@ -121,3 +121,29 @@ body {
         min-width: 100%;
     }
 }
+
+.login-prompt {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.role-selection label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #000000;
+    margin-right: 8px;
+}
+
+.login-link {
+    font-weight: 700;
+    font-size: 14px;
+    color: #003153;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
