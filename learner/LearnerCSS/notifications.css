@@ -108,7 +108,7 @@ body {
 }
 
 .logout-btn {
-    background-color: #FF000D;
+    background-color: #708090;
     color: white;
     border: none;
     border-radius: 50px;
@@ -117,7 +117,7 @@ body {
 }
 
 .logout-btn:hover {
-    background-color: #cc0000;
+    background-color: #003153;
 }
 
 .header-title {
