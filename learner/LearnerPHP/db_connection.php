@@ -2,7 +2,7 @@
 
 $host = 'localhost';
 $username = 'root';
-$password = '';
+$password = "appdev_Iskol4rx";
 $database = 'iskol4rx';  
 
 $conn = new mysqli($host, $username, $password, $database);
