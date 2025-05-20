@@ -51,7 +51,7 @@ require_once 'api/forgotPassword.php';
                     <button type="submit" class="btn btn-primary login-btn">SEND RESET LINK</button>
                     
                     <div class="text-center mt-3">
-                        <a href="login.php" class="forgot-password-link">Back to Login</a>
+                        <a href="index.php" class="forgot-password-link">Back to Login</a>
                     </div>
                 </form>
             </div>

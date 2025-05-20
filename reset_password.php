@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
         $stmt->bind_param("ss", $hashed_password, $token);
         
         if ($stmt->execute()) {
-            $success_message = "Your password has been reset successfully. You can now <a href='login.php'>login</a> with your new password.";
+            $success_message = "Your password has been reset successfully. You can now <a href='index.php'>login</a> with your new password.";
         } else {
             $error_message = "An error occurred. Please try again.";
         }

@@ -36,7 +36,7 @@ if ($step === 'role') {
             </a>
         </div>
         <div class="login-prompt">
-            <label>Already have an account?</label><a href="login.php" class="login-link">LOGIN</a>
+            <label>Already have an account?</label><a href="index.php" class="login-link">LOGIN</a>
         </div>
     </div>
 </body>

@@ -3,7 +3,7 @@ require_once '../LearnerPHP/ai_gabay.php';
 require_once '../LearnerPHP/learner_details.php';
 
 if (!isset($_SESSION['learner_id'])) {
-    header("Location: ../../login.php");
+    header("Location: ../../index.php");
     exit();
 }
 ?>

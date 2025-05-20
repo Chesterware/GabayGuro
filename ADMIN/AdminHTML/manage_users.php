@@ -3,7 +3,7 @@ require_once '../AdminPHP/admin_name.php';
 require_once '../AdminPHP/iskol4rx_users.php';
 
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../../login.php");
+    header("Location: ../../index.php");
     exit();
 }
 ?>

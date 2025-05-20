@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../api/db_connection.php';
 require_once __DIR__ . '/../../api/getUserDetails.php';
 
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../../login.php");
+    header("Location: ../../index.php");
     exit();
 }
 ?>

@@ -4,7 +4,7 @@ session_start();
 require_once 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: /iskol4rx/login.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -48,6 +48,6 @@ foreach ($user_types as $user_type) {
     $stmt->close();
 }
 
-header("Location: /iskol4rx/login.php?error=invalid");
+header("Location: /iskol4rx/index.php?error=invalid");
 exit();
 ?>

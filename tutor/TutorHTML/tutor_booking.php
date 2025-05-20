@@ -3,7 +3,7 @@ require_once '../TutorPHP/tutor_details.php';
 require_once '../TutorPHP/booking_info.php';
 
 if (!isset($_SESSION['tutor_id'])) {
-    header("Location: ../../login.php");
+    header("Location: ../../index.php");
     exit();
 }
 ?>

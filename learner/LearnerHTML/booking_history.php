@@ -1,6 +1,11 @@
 <?php
 require_once '../LearnerPHP/learner_details.php';
 require_once '../LearnerPHP/booking_info.php';
+
+if (!isset($_SESSION['learner_id'])) {
+    header("Location: ../../index.php");
+    exit(); 
+}
 ?>
 
 <!DOCTYPE html>
