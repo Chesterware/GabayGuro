@@ -72,13 +72,14 @@ if (!isset($_SESSION['learner_id'])) {
             foreach ($notifications as $row) {
                 $tutor_name = htmlspecialchars($row['tutor_name']);
                 $status = $row['display_status'];
+                $status_upper = strtoupper($status);
 
                 if (strtolower($row['status']) === 'cancelled') {
-                    $message = "You have <span style=\"color: #003153; font-weight: bold;\">$status</span> your booking with $tutor_name";
+                    $message = "<span style=\"color: #003153; font-weight: bold;\">$status_upper</span> - You have " . strtolower($status) . " your booking with $tutor_name";
                 } else {
-                    $message = "$tutor_name has <span style=\"color: #003153; font-weight: bold;\">$status</span> your booking";
+                    $message = "<span style=\"color: #003153; font-weight: bold;\">$status_upper</span> - $tutor_name has " . strtolower($status) . " your booking";
                 }
-        ?>
+            ?>
                 <div class="classnotification">
                     <div class="notification-content">
                         <p><?php echo $message; ?></p>
