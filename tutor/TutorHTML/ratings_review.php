@@ -1,10 +1,6 @@
 <?php
 require_once '../TutorPHP/tutor_details.php';
-
-if (!isset($_SESSION['tutor_id'])) {
-    header("Location: ../../index.php");
-    exit();
-}
+require_once '../TutorPHP/auth_tutor.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,10 +11,10 @@ if (!isset($_SESSION['tutor_id'])) {
     <title>Ratings & Reveiw</title>
     <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../TutorCSS/index.css">
     <link rel="stylesheet" href="../TutorCSS/ratings_review.css">
-    <script src="../TutorJS/ratings_review.js"></script>
 </head>
-<body>
+<body class="sidebar-collapsed">
     <div class="header-title">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
@@ -53,7 +49,7 @@ if (!isset($_SESSION['tutor_id'])) {
         </form>
     </div>
     
-    <div class="tutor-rating sidebar-open">
+    <div class="tutor-rating">
         <div class="icon-column">
             <img class="tutor-icon" src="tutor-icon.png" alt="Tutor Icon">
         </div>
@@ -65,18 +61,48 @@ if (!isset($_SESSION['tutor_id'])) {
         </div>
     </div>
 
-    <div class="learner-review sidebar-open">
-        <div class="learner-icon-column">
-            <img class="learner-icon" src="learner-icon.png" alt="Learner Icon">
+   <?php if (!empty($reviews)): ?>
+        <?php foreach ($reviews as $review): ?>
+            <div class="learner-review">
+                <div class="learner-icon-column">
+                    <img class="learner-icon" src="<?php echo htmlspecialchars($review['profile_picture']); ?>" alt="Learner Icon">
+                </div>
+                <div class="learner-text-column">
+                    <div class="review-rating">
+                        <?php displayStars($review['rating']); ?>
+                        <span class="rating-value"><?php echo number_format($review['rating'], 1); ?></span>
+                    </div>
+                    <p class="learner-review-text">
+                        <?php echo htmlspecialchars($review['review_text']); ?>
+                    </p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="no-reviews">
+            <p>No reviews yet. Your reviews will appear here once learners rate your sessions.</p>
         </div>
+    <?php endif; ?>
 
-        <div class="learner-text-column">
-            <p class="learner-review-text">
-                John was an amazing tutor! He explained the concepts clearly and was really patient with my questions. 
-            </p>x`cx
-        </div>
-    </div>
+    <?php
+    function displayStars($rating) {
+        $fullStars = floor($rating);
+        $halfStar = ($rating - $fullStars) >= 0.5;
+        $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+        
+        for ($i = 0; $i < $fullStars; $i++) {
+            echo '<i class="fas fa-star"></i>';
+        }
+        if ($halfStar) {
+            echo '<i class="fas fa-star-half-alt"></i>';
+        }
+        for ($i = 0; $i < $emptyStars; $i++) {
+            echo '<i class="far fa-star"></i>';
+        }
+    }
+    ?>
 
-    
+    <script src="../../time-date-sidebar.js">
+    </script>
 </body>
 </html>
