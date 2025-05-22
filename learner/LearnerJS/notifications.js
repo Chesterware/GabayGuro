@@ -62,23 +62,3 @@ function deleteAllNotifications() {
         window.location.href = window.location.pathname;
     }, 100);
 }
-
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const header = document.querySelector('.header-title');
-    const notificationsContainer = document.querySelector('.notifications-container');
-
-    sidebar.classList.toggle('closed');
-    header.classList.toggle('full-width');
-    notificationsContainer.classList.toggle('full-width');
-}
-
-function updateDateTime() {
-    const now = new Date();
-    const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString();
-    document.getElementById('datetime').innerHTML = `${date} ${time}`;
-}
-
-setInterval(updateDateTime, 1000);
-updateDateTime();

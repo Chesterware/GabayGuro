@@ -1,11 +1,7 @@
 <?php
 require_once '../LearnerPHP/learner_details.php';
 require_once '../LearnerPHP/notifications.php';
-
-if (!isset($_SESSION['learner_id'])) {
-    header("Location: ../../index.php");
-    exit(); 
-}
+require_once '../LearnerPHP/auth_learner.php';
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +12,10 @@ if (!isset($_SESSION['learner_id'])) {
     <title>Notifications</title>
     <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../LearnerCSS/index.css">
     <link rel="stylesheet" href="../LearnerCSS/notifications.css">
 </head>
-<body>
+<body class="sidebar-collapsed">
     <div class="header-title">  
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
@@ -58,7 +55,7 @@ if (!isset($_SESSION['learner_id'])) {
 
     <a href="#" id="delete-all" onclick="showDeleteAllModal()">DELETE ALL</a>
 
-    <div class="notifications-container full-width">
+    <div class="notifications-container">
         <?php 
         if (empty($notifications)) { 
         ?>
@@ -117,5 +114,6 @@ if (!isset($_SESSION['learner_id'])) {
     </div>
 
     <script src="../LearnerJS/notifications.js"></script>
+    <script src=../../time-date-sidebar.js></script>
 </body>
 </html>
