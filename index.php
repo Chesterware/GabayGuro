@@ -17,6 +17,19 @@ $error_message = isset($_GET['error']) ? "Invalid email or password!" : "";
 $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You have been successfully logged out." : "";
 ?>
 
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#003153">
+<link rel="icon" href="/GabayGuroLogo.png">
+
+<script>
+    if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('Service Worker registered!'))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    }
+</script>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,0 +1,15 @@
+{
+  "name": "Gabay Guro",
+  "short_name": "Gabay Guro",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF9F6",
+  "theme_color": "#003153",
+  "icons": [
+    {
+      "src": "GabayGuroLogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
