@@ -1,11 +1,7 @@
 <?php
 require_once '../TutorPHP/tutor_details.php';
 require_once '../TutorPHP/booking_info.php';
-
-if (!isset($_SESSION['tutor_id'])) {
-    header("Location: ../../index.php");
-    exit();
-}
+require_once '../TutorPHP/auth_tutor.php';
 ?>
 
 <!DOCTYPE html>
@@ -16,12 +12,10 @@ if (!isset($_SESSION['tutor_id'])) {
     <title>Booking History</title>
     <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../TutorCSS/index.css">
     <link rel="stylesheet" href="../TutorCSS/tutor_booking.css">
 </head>
-<style>
-
-</style>
-<body>
+<body class="sidebar-collapsed">
     <div class="header-title">  
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
@@ -67,7 +61,7 @@ if (!isset($_SESSION['tutor_id'])) {
     <div class="booking-entries">
         <?php if ($result->num_rows > 0) : ?>
             <?php while ($row = $result->fetch_assoc()) : ?>
-                <div class="learner-booking-entry full-view"
+                <div class="learner-booking-entry"
                     style="display: none;"
                     data-booking-id="<?php echo $row['booking_id']; ?>"
                     data-status="<?php echo strtolower($row['status']); ?>">
@@ -108,5 +102,6 @@ if (!isset($_SESSION['tutor_id'])) {
         </div>
 
         <script src="../TutorJS/tutor_booking.js"></script>
+        <script src="../../time-date-sidebar.js"></script>
 </body>
 </html>

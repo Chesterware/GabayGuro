@@ -1,22 +1,3 @@
-function updateDateTime() {
-    const now = new Date();
-    const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString();
-    document.getElementById('datetime').textContent = `${date} ${time}`;
-}
-
-setInterval(updateDateTime, 1000);
-updateDateTime();
-
-function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('closed');
-    document.querySelector('.header-title').classList.toggle('full-width');
-    document.querySelector('.booking-status-buttons').classList.toggle('button-full-width');
-    document.querySelectorAll('.learner-booking-entry').forEach(entry =>
-        entry.classList.toggle('full-view')
-    );
-}
-
 function selectStatus(event, status) {
     event.preventDefault();
 
