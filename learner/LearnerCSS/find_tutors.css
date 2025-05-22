@@ -10,8 +10,7 @@
 }
 
 body.sidebar-collapsed .filter-top {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 90px 10px 0 10px;
 }
 
 .dropdown-container {

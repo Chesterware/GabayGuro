@@ -1,25 +1,22 @@
 <?php
 require_once '../LearnerPHP/learner_details.php';
 require_once '../LearnerPHP/booking_info.php';
-
-if (!isset($_SESSION['learner_id'])) {
-    header("Location: ../../index.php");
-    exit(); 
-}
+require_once '../LearnerPHP/auth_learner.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking History</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Find Tutors</title>
     <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../LearnerCSS/booking_history.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../LearnerCSS/index.css" />
+    <link rel="stylesheet" href="../LearnerCSS/booking_history.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
-<body>
+<body class="sidebar-collapsed">
     <div class="header-title">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
@@ -86,7 +83,7 @@ if (!isset($_SESSION['learner_id'])) {
 
     <?php if ($result->num_rows > 0) : ?>
         <?php while ($row = $result->fetch_assoc()) : ?>
-            <div class="booking-entry full-view" data-booking-id="<?php echo $row['booking_id']; ?>" data-status="<?php echo strtolower($row['status']); ?>">
+            <div class="booking-entry" data-booking-id="<?php echo $row['booking_id']; ?>" data-status="<?php echo strtolower($row['status']); ?>">
                 <div class="booking-col booking-col-left">
                     <img src="tutor.jpg" alt="Tutor Image" class="tutor-image">
                 </div>
@@ -121,7 +118,7 @@ if (!isset($_SESSION['learner_id'])) {
             </div>
         <?php endwhile; ?>
     <?php else : ?>
-        <div class="booking-entry full-view">
+        <div class="booking-entry">
             <div class="booking-info-line">
                 <div class="no-bookings">No bookings found.</div>
             </div>
@@ -129,5 +126,6 @@ if (!isset($_SESSION['learner_id'])) {
     <?php endif; ?>
     
     <script src="../LearnerJS/booking_history.js"></script>
+    <script src="../../time-date-sidebar.js"></script>
 </body>
 </html>

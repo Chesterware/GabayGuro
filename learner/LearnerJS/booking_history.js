@@ -1,31 +1,6 @@
 let selectedStars = 0;
 let currentBookingId = null;
 
-function updateDateTime() {
-    const now = new Date();
-    const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString();
-    document.getElementById('datetime').innerHTML = `${date} ${time}`;
-}
-
-setInterval(updateDateTime, 1000);
-updateDateTime();
-
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const header = document.querySelector('.header-title');
-    const bookingStatusButtons = document.querySelector('.booking-status-buttons');
-    const bookingEntries = document.querySelectorAll('.booking-entry');
-
-    sidebar.classList.toggle('closed');
-    header.classList.toggle('full-width');
-    bookingStatusButtons.classList.toggle('button-full-width');
-
-    bookingEntries.forEach(entry => {
-        entry.classList.toggle('full-view');
-    });
-}
-
 function selectStatus(event, status) {
     event.preventDefault();
 

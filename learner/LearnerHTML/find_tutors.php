@@ -1,11 +1,7 @@
 <?php
 require_once '../LearnerPHP/ai_gabay.php';
 require_once '../LearnerPHP/learner_details.php';
-
-if (!isset($_SESSION['learner_id'])) {
-    header("Location: ../../index.php");
-    exit();
-}
+require_once '../LearnerPHP/auth_learner.php';
 ?>
 
 <!DOCTYPE html>
