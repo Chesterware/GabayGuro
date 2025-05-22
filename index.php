@@ -3,7 +3,7 @@ session_start();
 require_once 'api/db_connection.php';
 
 if (isset($_SESSION['admin_id'])) {
-    header("Location: /iskol4rx/ADMIN/AdminPHP/manageUser.php");
+    header("Location: /iskol4rx/ADMIN/AdminPHP/admin_dashboard.php");
     exit();
 } elseif (isset($_SESSION['tutor_id'])) {
     header("Location: /iskol4rx/tutor/TutorHTML/ratings_review.php");

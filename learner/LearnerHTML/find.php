@@ -17,9 +17,604 @@ if (!isset($_SESSION['learner_id'])) {
     <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../LearnerCSS/index.css" />
-    <link rel="stylesheet" href="../LearnerCSS/find_tutors.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<style>
+.filter-top {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 90px 10px 0 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+body.sidebar-collapsed .filter-top {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.dropdown-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 10px 20px 10px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #003153;
+    background-color: #FFFFFF;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 10 6%22%3E%3Cpath fill=%22none%22 stroke=%22%23003153%22 stroke-width=%221%22 d=%22M1 1l4 4 4-4%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.choose-rate {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.choose-rate-btn {
+    margin-top: 9px;
+    width: 48%;
+    height: 38px;
+    padding: 10px 30px;
+    border: 2px solid #003153;
+    color: #003153;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: .9rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choose-rate-btn:hover {
+    background-color: #003153;
+    color: white;
+}
+
+.choose-rate-btn.active {
+    background-color: #003153;
+    color: white;
+}
+
+.enter-rate {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.enter-rate input[type="number"] {
+    width: 48%;
+    height: 38px;
+    padding: 10px 20px 10px 10px;
+    border: none;
+    border-radius: 5px;
+    color: #003153;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    outline: none;
+    font-weight: normal;
+}
+
+.enter-rate input[type="number"]:focus {
+    border: 2px solid #003153;
+}
+
+.enter-rate input[type="number"]::-webkit-outer-spin-button,
+.enter-rate input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.enter-rate input[type="number"]:invalid {
+    border: none;
+}
+
+.enter-rate input[type="number"]::placeholder {
+    color: #003153;
+    font-size: 130%;
+}
+
+.enter-rate input[type="hidden"] {
+    display: none;
+}
+
+#error-message{
+    color: #FF000D;
+    display: none;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.subjects {
+    background-color: #FFFFFF;
+    padding: 5px 20px 20px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.subjects p {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    grid-column: span 4;
+    font-style: italic;
+    font-weight: bold;
+    color: #003153;
+}
+
+.subjects label {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    gap: 5px;
+    font-weight: bold;
+    color: #003153;
+}
+
+.subjects input[type="checkbox"] {
+    order: -1;
+    margin-right: 10px;
+}
+
+.subjects input[type="checkbox"]:checked {
+    accent-color: #003153;
+}
+
+.tutor-list {
+    display: none;
+}
+
+.tutor-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.apply-all {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px 24px;
+    background-color: #003153;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.apply-all:hover {
+    background-color: #002244;
+}
+
+.sort-filter {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    margin: 20px 0 20px 0;
+}
+
+.sort-filter label {
+    margin: 10px 10px 0 0;
+    color: #003153;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.sort-filter select {
+    margin-left: 18px;
+    font-weight: bold; 
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 5px;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+/* Tutor Card Styles */
+.tutor-card-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
+    padding: 20px;
+    margin: 20px 20px 0px 40px;
+    box-sizing: border-box;
+    border: 2px solid #003153;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-collapsed .tutor-card-wrapper {
+    margin-left: 270px;
+}
+
+.tutor-profile-column {
+    margin: 10px 0 0 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tutor-details-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tutor-details-column p {
+    margin-bottom: -10px;
+}
+
+.tutor-details-column strong {
+    color: #003153;
+}
+
+.tutor-add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    color: #FFFFFF;
+    background-color: #003153;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tutor-add-button:hover {
+    background-color: #002440;
+}
+
+.tutor-profile-icon {
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+    background-color: #eee;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tutor-name-heading {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.star {
+    color: #FFD700;
+    font-size: 1em;
+}
+
+.reviews-container {
+    display: none;
+    margin: 12px 0 10px 0;
+}
+.reviews-container.show {
+    display: block;
+}
+
+.review-item {
+    background-color: #FAF9F6;
+    border-left: 5px solid #003153;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: background 0.3s ease;
+}
+
+.review-item:hover {
+    background-color: #F0F0F0;
+}
+
+.review-item p {
+    margin: 5px 0;
+    font-size: 12px;
+    font-style: italic;
+    color: #000000;
+}
+
+.review-item strong {
+    color: #003153;
+}
+
+.view-reviews-btn {
+    background-color:transparent;
+    color: #000000;
+    border: none;
+    margin: 15px 0 0 0;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex;
+}
+
+.view-reviews-btn:hover {
+    color: #003153;
+    text-decoration: underline;
+}
+
+.no-review{
+    font-style: italic;
+    font-weight:bold;
+    color: #8B8B8B;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+h4 {
+    font-size: 2rem;
+    color: #003153;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-field label {
+    font-size: 1em;
+    color: #003153;
+    width: 30%;
+    text-align: left;
+}
+
+.form-field input,
+.form-field select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #003153;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.form-field input:focus {
+    border: 2px solid #003153;
+    outline: none;
+    font-weight: bold;
+    color: #003153;
+}
+
+.form-field select:focus {
+    border: 2px solid #003153;
+    outline: none;
+    font-weight: bold;
+    color: #003153;
+}
+
+.subject-selection select {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.form-action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-book-now,
+.cancel-booking {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 48%;
+    border: none;
+    height: 50px;
+}
+
+.btn-book-now {
+    color: #FFFFFF;
+    background-color: #003153;
+}
+
+.cancel-booking {
+    color: #003153;
+    background-color: transparent;
+}
+
+.btn-book-now:hover {
+    background-color: #002440;
+}
+
+.cancel-booking:hover {
+    border: 2px solid #003153;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .dropdown-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .dropdown-container {
+        grid-template-columns: 1fr;
+    }
+
+    .tutor-filter {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        padding: 15px 10px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .sidebar-label {
+        font-size: 1.25rem;
+    }
+
+    .choose-rate-btn {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 1rem;
+    }
+
+    .apply-all {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+
+    .tutor-filter {
+        justify-content: center;
+    }
+
+    .tutor-card-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 60px;
+    }
+
+    .tutor-profile-column,
+    .tutor-details-column {
+        width: 100%;
+        text-align: center;
+    }
+
+    .reviews-container.show {
+        max-height: 200px;
+    }
+    
+    .view-reviews-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .choose-rate-btn {
+        width: 100%;
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    .apply-all {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+
+    .reviews-container.show {
+        max-height: 150px;
+    }
+
+    .form-action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-book-now,
+    .cancel-booking {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .form-field {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-field label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .form-field input,
+    .form-field select {
+        width: 100%;
+    }
+}
+</style>
 <body class="sidebar-collapsed">
     <div class="header-title">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
@@ -65,7 +660,7 @@ if (!isset($_SESSION['learner_id'])) {
         </form>
     </div>
 
-        <div class="filter-top">
+        <div class="filter-top sidebar-collapsed">
         <form action="" method="GET">
             <input type="hidden" name="apply_filters" value="1">
             <div class="dropdown-container">
@@ -318,11 +913,21 @@ if (!isset($_SESSION['learner_id'])) {
             </form>
         </div>
     </div>
-
-    <script src=../../time-date-sidebar.js></script>
-    <script src=../LearnerJS/find_tutors.js></script>
-    
     <script>
+    function toggleSidebar() {
+        document.body.classList.toggle("sidebar-collapsed");
+    }
+
+    function updateDateTime() {
+        const now = new Date();
+        const date = now.toLocaleDateString();
+        const time = now.toLocaleTimeString();
+        document.getElementById('datetime').innerHTML = `${date} ${time}`;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
     const noTutorsFound = <?php echo json_encode($no_tutors_found); ?>;
         const tutorListContainer = document.querySelector('.tutor-list');
         const noTutorsMessage = document.createElement('p');

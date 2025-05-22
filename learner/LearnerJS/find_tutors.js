@@ -11,30 +11,6 @@ function toggleReviews(button) {
     button.innerHTML = `<i class="${icon.className}"></i> ${isExpanded ? 'View' : 'Hide'} Reviews (${reviewCount})`;
 }
 
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const header = document.querySelector('.header-title');
-    const filterTop = document.querySelector('.filter-top');
-
-    sidebar.classList.toggle('closed');
-    header.classList.toggle('full-width');
-    filterTop.classList.toggle('full-width');
-
-    document.querySelectorAll('.tutor-card-wrapper').forEach(card => {
-        card.classList.toggle('full-width');
-    });
-}
-
-function updateDateTime() {
-    const now = new Date();
-    const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString();
-    document.getElementById('datetime').innerHTML = `${date} ${time}`;
-}
-
-setInterval(updateDateTime, 1000);
-updateDateTime();
-
 document.querySelectorAll('.choose-rate-btn').forEach(button => {
     button.addEventListener('click', function () {
         document.getElementById('rate-type-input').value = this.dataset.value;
