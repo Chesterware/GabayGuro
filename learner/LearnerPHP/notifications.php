@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connection.php'; 
+require_once '../../db_connection.php';
 
 if (!isset($_SESSION['learner_id'])) {
     header("Location: ../../index.php");

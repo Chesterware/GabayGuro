@@ -1,7 +1,7 @@
 <?php
-require_once 'db_connection.php';
+require_once '../../db_connection.php';
 
-session_start(); // Make sure session is started
+session_start();
 if (!isset($_SESSION['learner_id'])) {
     http_response_code(403);
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);

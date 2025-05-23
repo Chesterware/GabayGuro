@@ -1,5 +1,5 @@
 <?php
-require_once 'api/db_connection.php';
+require_once '../db_connection.php';
 require 'vendor/autoload.php'; // Require PHPMailer autoload
 
 use PHPMailer\PHPMailer\PHPMailer;

@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__ . '/../../api/db_connection.php';
-require_once __DIR__ . '/../../api/getUserDetails.php';
+require_once '../../db_connection.php';
 
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../../index.php");
