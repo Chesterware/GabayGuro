@@ -1,7 +1,7 @@
 main.content-container {
     margin-left: 230px;
     transition: margin-left 0.3s ease;
-    padding: 20px 40px 40px;
+    padding: 20px 10px 10px 0;
     margin-top: 110px;
     box-sizing: border-box;
 }
@@ -12,7 +12,7 @@ body.sidebar-collapsed main.content-container {
 
 .user-columns {
     display: flex;
-    gap: 40px;
+    gap: 10px;
     flex-wrap: nowrap;
 }
 
@@ -73,7 +73,7 @@ body.sidebar-collapsed main.content-container {
 }
 
 .user-card p strong {
-    color: #003153
+    color: #003153;
 }
 
 @media (max-width: 1024px) {
@@ -102,4 +102,67 @@ body.sidebar-collapsed main.content-container {
         overflow: hidden;
         transition: width 0.3s ease;
     }
+}
+.edit-btn, .delete-btn, .update-btn, .cancel-btn {
+    width: 140px;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    margin-right: 8px;
+}
+
+.edit-btn, .update-btn {
+    background-color: #003153;
+}
+
+.edit-btn:hover, .update-btn:hover {
+    background-color: #001D3D;
+}
+
+.delete-btn, .cancel-btn {
+    background-color: transparent;
+    color: #003153;
+    margin-top: 8px;
+}
+
+.delete-btn:hover, .cancel-btn:hover {
+    border: 1px solid #003153;
+}
+
+.button-group button:last-child {
+    margin-right: 0;
+}
+
+select:disabled {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    color: #003153;
+    opacity: 1;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: default;
+}
+
+select:not(:disabled) {
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: menulist-button;
+    -moz-appearance: menulist-button;
+    appearance: menulist-button;
+    border: none;
+    border-radius: 4px;
+    color: #003153;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
 }

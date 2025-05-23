@@ -19,41 +19,6 @@ if (!isset($_SESSION['admin_id'])) {
     <link rel="stylesheet" href="../AdminCSS/index.css" />
     <link rel="stylesheet" href="../AdminCSS/manage_users.css" />
 </head>
-<style>
-.edit-btn, .delete-btn {
-    width: 140px;
-    box-sizing: border-box;
-    padding: 6px 12px;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: white;
-    display: inline-block;
-    text-align: center;
-}
-
-.edit-btn {
-    background-color: #003153;
-    margin-right: 8px;
-}
-
-.edit-btn:hover {
-    background-color: #001D3D;
-}
-
-.delete-btn {
-    background-color:transparent;
-    color: #003153;
-    margin-top: 8px;
-}
-
-.delete-btn:hover {
-    border: 1px solid #003153;
-}
-
-</style>
 <body class="sidebar-collapsed">
     <div class="header-title">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
@@ -126,13 +91,13 @@ if (!isset($_SESSION['admin_id'])) {
                 </div>
             </section>
 
-            <section class="user-column">
+<section class="user-column">
     <div class="column-header">
         <h2>TUTORS (<?php echo count($tutors); ?>)</h2>
     </div>
     <div class="scrollable-list">
         <?php if (!empty($tutors)): ?>
-            <?php foreach ($tutors as $tutor): ?>
+            <?php foreach ($tutors as $index => $tutor): ?>
                 <div class="user-card">
                     <h3>
                         <?php 
@@ -151,11 +116,29 @@ if (!isset($_SESSION['admin_id'])) {
                         ?>
                     </strong></p>
 
-                    <form method="POST" action="delete_user.php" onsubmit="return confirm('Are you sure you want to delete this tutor?');" style="display:inline;">
+                    <form method="POST" action="../AdminPHP/update_tutor.php" id="edit-form-<?= $index ?>">
+                        <input type="hidden" name="tutor_id" value="<?= $tutor['tutor_id'] ?>">
+
+                        <p><span class="label">Status:</span>
+                            <select name="status" id="status-<?= $index ?>" disabled required>
+                                <option value="For Verification" <?= $tutor['status'] === 'For Verification' ? 'selected' : '' ?>>For Verification</option>
+                                <option value="Verified" <?= $tutor['status'] === 'Verified' ? 'selected' : '' ?>>Verified</option>
+                                <option value="Unverified" <?= $tutor['status'] === 'Unverified' ? 'selected' : '' ?>>Unverified</option>
+                            </select>
+                        </p>
+
+                        <div class="button-group">
+                            <button type="button" class="cancel-btn" id="cancel-btn-<?= $index ?>" onclick="cancelEdit(<?= $index ?>)" style="display:none;">CANCEL</button>
+                            <button type="submit" class="update-btn" id="update-btn-<?= $index ?>" style="display:none;">UPDATE</button>
+                            <button type="submit" class="delete-btn" id="delete-btn-<?= $index ?>" title="Delete Tutor" form="delete-form-<?= $index ?>">DELETE</button>
+                                                        <button type="button" class="edit-btn" id="edit-btn-<?= $index ?>" onclick="enableEdit(<?= $index ?>)">EDIT</button>
+                        </div>
+     
+                    </form>
+
+                    <form id="delete-form-<?= $index ?>" method="POST" action="../AdminPHP/delete_user.php" onsubmit="return confirm('Are you sure you want to delete this tutor?');" style="display:none;">
                         <input type="hidden" name="user_type" value="tutor">
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($tutor['tutor_id']); ?>">
-                        <button type="button" class="edit-btn">EDIT</button>
-                        <button type="submit" class="delete-btn" title="Delete Tutor">DELETE</button>
                     </form>
 
                 </div>
@@ -165,7 +148,6 @@ if (!isset($_SESSION['admin_id'])) {
         <?php endif; ?>
     </div>
 </section>
-
 
             <section class="user-column">
                 <div class="column-header">
@@ -192,7 +174,7 @@ if (!isset($_SESSION['admin_id'])) {
                                     ?>
                                 </strong></p>
                                 
-                                <form method="POST" action="delete_user.php" onsubmit="return confirm('Are you sure you want to delete this learner?');" style="display:inline;">
+                                <form method="POST" action="../AdminPHP/delete_user.php" onsubmit="return confirm('Are you sure you want to delete this learner?');" style="display:inline;">
                                     <input type="hidden" name="user_type" value="learner">
                                     <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($learner['learner_id']); ?>">
                                     <button type="submit" class="delete-btn" title="Delete Tutor">DELETE</button>
@@ -212,6 +194,48 @@ if (!isset($_SESSION['admin_id'])) {
         function toggleSidebar() {
             document.body.classList.toggle("sidebar-collapsed");
         }
+
+function enableEdit(index) {
+    const select = document.getElementById('status-' + index);
+    const editBtn = document.getElementById('edit-btn-' + index);
+    const cancelBtn = document.getElementById('cancel-btn-' + index);
+    const updateBtn = document.getElementById('update-btn-' + index);
+    const deleteBtn = document.getElementById('delete-btn-' + index);
+
+    select.disabled = false;
+    editBtn.style.display = 'none';
+    cancelBtn.style.display = 'inline-block';
+    updateBtn.style.display = 'inline-block';
+    deleteBtn.style.display = 'none';  // Hide DELETE when editing
+}
+
+function cancelEdit(index) {
+    const select = document.getElementById('status-' + index);
+    const editBtn = document.getElementById('edit-btn-' + index);
+    const cancelBtn = document.getElementById('cancel-btn-' + index);
+    const updateBtn = document.getElementById('update-btn-' + index);
+    const deleteBtn = document.getElementById('delete-btn-' + index);
+
+    select.disabled = true;
+
+    const originalValue = select.getAttribute('data-original');
+    if (originalValue) {
+        select.value = originalValue;
+    }
+
+    editBtn.style.display = 'inline-block';
+    cancelBtn.style.display = 'none';
+    updateBtn.style.display = 'none';
+    deleteBtn.style.display = 'inline-block';  // Show DELETE again when canceling
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('select[id^="status-"]').forEach(select => {
+        select.setAttribute('data-original', select.value);
+    });
+});
+
+
     </script>
     <script src="../../time-date-sidebar.js"></script>
 </body>
