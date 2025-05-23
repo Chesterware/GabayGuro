@@ -30,7 +30,7 @@ require_once 'api/register_tutor.php';
             <?php if (!empty($success)): ?>
                 <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
                 <div class="text-center">
-                    <a href="../tutor/TutorHTML/tutor_booking.php" class="btn-login">Proceed to Dashboard</a>
+                    <a href="tutor/TutorHTML/tutor_booking.php" class="btn-login">Proceed to Dashboard</a>
                 </div>
             <?php else: ?>
             
@@ -192,7 +192,6 @@ require_once 'api/register_tutor.php';
                         }
                     });
                     
-                    // Special check for tutor specializations
                     const checkedSpecs = this.querySelectorAll('input[name="specializations[]"]:checked');
                     if (checkedSpecs.length === 0) {
                         const specLabel = this.querySelector('.specialization-label');

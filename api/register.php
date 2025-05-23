@@ -1,5 +1,6 @@
 <?php
-require_once '../db_connection.php';
+require_once(__DIR__ . '/../db_connection.php');
+
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

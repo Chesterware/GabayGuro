@@ -20,6 +20,24 @@ if (!isset($_SESSION['admin_id'])) {
     <link rel="stylesheet" href="../AdminCSS/index.css" />
     <link rel="stylesheet" href="../AdminCSS/tutor_verification.css" />
 </head>
+<style>
+.download-btn {
+    display: inline-block;
+    color: #003153;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.download-btn:hover {
+    text-decoration: underline;
+}
+.tutor-info .download-btn:nth-of-type(2) {
+    margin-left: 10px;
+}
+
+</style>
 <body class="sidebar-collapsed">
     <div class="header-title">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
@@ -82,6 +100,12 @@ if (!isset($_SESSION['admin_id'])) {
                             <div class="tutor-info"><span class="label">Rate (Hourly):</span> <strong><?= number_format($tutor['rate_per_hour'], 2) ?></strong></div>
                             <div class="tutor-info"><span class="label">Rate (Session):</span> <strong><?= number_format($tutor['rate_per_session'], 2) ?></strong></div>
                             <div class="tutor-info"><span class="label">Joined:</span> <strong><?= date('m-d-Y', strtotime($tutor['created_at'])) ?></strong></div>
+
+                            <div class="tutor-info">
+                                <span class="label">Credentials:</span>
+                                <a href="../AdminPHP/tutor_docs.php?tutor_id=<?= $tutor_id ?>&type=diploma" class="download-btn" target="_blank">Download Diploma</a>
+                                <a href="../AdminPHP/tutor_docs.php?tutor_id=<?= $tutor_id ?>&type=certificate" class="download-btn" target="_blank">Download Certificates</a>
+                            </div>
 
                             <?php if ($status === 'for verification'): ?>
                                 <form class="verify-form" method="POST">

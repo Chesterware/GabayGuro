@@ -12,7 +12,7 @@ if ($step === 'role') {
     <title>Select Role - GABAYGURO</title>
     <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/iskol4rx/styles/select_role.css">
+    <link rel="stylesheet" href="../styles/select_role.css">
 </head>
 <body>
     <div class="header">
@@ -56,7 +56,7 @@ if ($step === 'credentials') {
     <title>Register - GABAYGURO</title>
     <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400;500&family=Raleway:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/iskol4rx/styles/register.css">
+    <link rel="stylesheet" href="../styles/register.css">
     <style>
         
     </style>
