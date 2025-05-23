@@ -1,24 +1,88 @@
-.chart-and-interpretation {
-    display: flex;
-    gap: 30px;
-    margin: 130px 20px 0 250px;
-    transition: all 0.3s ease;
+
+.status-users-container {
+    width: calc(100% - 240px);
+    margin: 120px 10px 10px 240px;
+    transition: all ease 0.3s;
 }
 
-body.sidebar-collapsed .chart-and-interpretation {
-    margin-left: 20px;
+body.sidebar-collapsed .status-users-container {
+    width: calc(100% - 10px);
+    margin: 120px 10px 10px 10px;
+}
+.row {
+    display: grid;
+    gap: 10px;
 }
 
-.chart-container {
-    width: 1200px;
-    height: 600px;
-    padding: 30px 40px;
-    background: #FFFFFF;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
+.titles-row {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.titles-row .col:first-child {
+    grid-column: span 6;
+}
+
+.titles-row .col:last-child {
+    grid-column: span 2;
+}
+
+.counts-row {
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.col {
+    background-color: #FFFFFF;
+    border: 2px solid #003153;
+    border-radius: 6px;
+    padding: 12px 5px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    font-size: 15px;
+    text-align: center;
+    min-height: 50px;
+    color: #000000; 
+}
+
+.col.title {
+    background-color: transparent;
+    border: none;
+    font-size: 32px;
+    color: #003153;
+}
+
+.col strong {
+    font-size: 22px;
+    margin-top: 5px;
+    color: #003153;
+    display: block;
+}
+
+.chart-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    margin: 10px 10px 10px 240px;
+    transition: all ease 0.3s;
+}
+body.sidebar-collapsed .chart-box {
+    margin: 10px 0 10px 0;
+}
+.chart-container {
+    position: relative;
+    height: 500px;
+    width: 100%;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .chart-header {
@@ -72,55 +136,15 @@ body.sidebar-collapsed .chart-and-interpretation {
 
 #subjectChart {
     width: 100%;
-    height: 350px;
+    height: 500px;
     border-radius: 12px;
     display: block;
 }
 
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-
-.summary-grid > .summary-card {
-  background-color: #FAF9F6;
-  border: 2px solid #003153;
-  border-radius: 8px;
-  padding: 8px 20px;
-  box-shadow: 0 4px 12px rgba(0, 90, 153, 0.12);
-  font-size: 15px;
-  font-weight: 600;
-  color: #000000;
-  transition: background-color 0.3s ease;
-}
-
-.summary-card h3 {
-  font-size: 18px;
-  margin-bottom: 12px;
-  font-weight: 700;
-  color: #000000;
-}
-
-.summary-card p,
-.subject-list {
-  color: #003153;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.subject-list {
-  list-style-type: disc;
-  padding-left: 1.2rem;
-  margin: 8px 0 0 0;
-}
-
-.subject-list li {
-  margin-bottom: 6px;
-  line-height: 1.4;
+#userPieChart {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: 100% !important;
+    width: 100% !important;
 }

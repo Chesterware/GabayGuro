@@ -137,6 +137,7 @@ body.sidebar-collapsed .sidebar {
     left: 230px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    z-index: 1000;
 }
 
 body.sidebar-collapsed .header-title {

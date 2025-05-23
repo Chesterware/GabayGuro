@@ -1,10 +1,6 @@
 <?php
 require_once '../../db_connection.php';
-
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../../index.php");
-    exit();
-}
+require_once 'auth_admin.php';
 
 $adminId = $_SESSION['admin_id'];
 
