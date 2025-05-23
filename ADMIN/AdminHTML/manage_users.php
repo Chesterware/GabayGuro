@@ -1,10 +1,19 @@
 <?php
 require_once '../AdminPHP/admin_name.php'; 
 require_once '../AdminPHP/iskol4rx_users.php';
+require_once '../AdminPHP/auth_admin.php';
+require_once '../AdminPHP/add_admin.php';
 
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../../index.php");
-    exit();
+if (isset($_SESSION['admin_errors'])) {
+    foreach ($_SESSION['admin_errors'] as $error) {
+        echo "<script>alert('". addslashes($error) ."');</script>";
+    }
+    unset($_SESSION['admin_errors']);
+}
+
+if (isset($_SESSION['admin_success'])) {
+    echo "<script>alert('". addslashes($_SESSION['admin_success']) ."');</script>";
+    unset($_SESSION['admin_success']);
 }
 ?>
 
@@ -61,6 +70,9 @@ if (!isset($_SESSION['admin_id'])) {
             <section class="user-column">
                 <div class="column-header">
                     <h2>ADMINS (<?php echo count($admins); ?>)</h2>
+                    <button class="add-btn">
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
                 </div>
                 <div class="scrollable-list">
                     <?php if (!empty($admins)): ?>
@@ -91,63 +103,63 @@ if (!isset($_SESSION['admin_id'])) {
                 </div>
             </section>
 
-<section class="user-column">
-    <div class="column-header">
-        <h2>TUTORS (<?php echo count($tutors); ?>)</h2>
-    </div>
-    <div class="scrollable-list">
-        <?php if (!empty($tutors)): ?>
-            <?php foreach ($tutors as $index => $tutor): ?>
-                <div class="user-card">
-                    <h3>
-                        <?php 
-                            echo htmlspecialchars(
-                                $tutor['first_name'] . ' ' . 
-                                ($tutor['middle_initial'] ? $tutor['middle_initial'] . '. ' : '') . 
-                                $tutor['last_name']
-                            );
-                        ?>
-                    </h3>
-                    <p><span class="label">Tutor ID:</span> <strong><?php echo htmlspecialchars($tutor['tutor_id']); ?></strong></p>
-                    <p><span class="label">Joined:</span> <strong>
-                        <?php 
-                            $date = new DateTime($tutor['created_at']);
-                            echo $date->format('m-d-Y'); 
-                        ?>
-                    </strong></p>
-
-                    <form method="POST" action="../AdminPHP/update_tutor.php" id="edit-form-<?= $index ?>">
-                        <input type="hidden" name="tutor_id" value="<?= $tutor['tutor_id'] ?>">
-
-                        <p><span class="label">Status:</span>
-                            <select name="status" id="status-<?= $index ?>" disabled required>
-                                <option value="For Verification" <?= $tutor['status'] === 'For Verification' ? 'selected' : '' ?>>For Verification</option>
-                                <option value="Verified" <?= $tutor['status'] === 'Verified' ? 'selected' : '' ?>>Verified</option>
-                                <option value="Unverified" <?= $tutor['status'] === 'Unverified' ? 'selected' : '' ?>>Unverified</option>
-                            </select>
-                        </p>
-
-                        <div class="button-group">
-                            <button type="button" class="cancel-btn" id="cancel-btn-<?= $index ?>" onclick="cancelEdit(<?= $index ?>)" style="display:none;">CANCEL</button>
-                            <button type="submit" class="update-btn" id="update-btn-<?= $index ?>" style="display:none;">UPDATE</button>
-                            <button type="submit" class="delete-btn" id="delete-btn-<?= $index ?>" title="Delete Tutor" form="delete-form-<?= $index ?>">DELETE</button>
-                                                        <button type="button" class="edit-btn" id="edit-btn-<?= $index ?>" onclick="enableEdit(<?= $index ?>)">EDIT</button>
-                        </div>
-     
-                    </form>
-
-                    <form id="delete-form-<?= $index ?>" method="POST" action="../AdminPHP/delete_user.php" onsubmit="return confirm('Are you sure you want to delete this tutor?');" style="display:none;">
-                        <input type="hidden" name="user_type" value="tutor">
-                        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($tutor['tutor_id']); ?>">
-                    </form>
-
+            <section class="user-column">
+                <div class="column-header">
+                    <h2>TUTORS (<?php echo count($tutors); ?>)</h2>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No tutors found.</p>
-        <?php endif; ?>
-    </div>
-</section>
+                <div class="scrollable-list">
+                    <?php if (!empty($tutors)): ?>
+                        <?php foreach ($tutors as $index => $tutor): ?>
+                            <div class="user-card">
+                                <h3>
+                                    <?php 
+                                        echo htmlspecialchars(
+                                            $tutor['first_name'] . ' ' . 
+                                            ($tutor['middle_initial'] ? $tutor['middle_initial'] . '. ' : '') . 
+                                            $tutor['last_name']
+                                        );
+                                    ?>
+                                </h3>
+                                <p><span class="label">Tutor ID:</span> <strong><?php echo htmlspecialchars($tutor['tutor_id']); ?></strong></p>
+                                <p><span class="label">Joined:</span> <strong>
+                                    <?php 
+                                        $date = new DateTime($tutor['created_at']);
+                                        echo $date->format('m-d-Y'); 
+                                    ?>
+                                </strong></p>
+
+                                <form method="POST" action="../AdminPHP/update_tutor.php" id="edit-form-<?= $index ?>">
+                                    <input type="hidden" name="tutor_id" value="<?= $tutor['tutor_id'] ?>">
+
+                                    <p><span class="label">Status:</span>
+                                        <select name="status" id="status-<?= $index ?>" disabled required>
+                                            <option value="For Verification" <?= $tutor['status'] === 'For Verification' ? 'selected' : '' ?>>For Verification</option>
+                                            <option value="Verified" <?= $tutor['status'] === 'Verified' ? 'selected' : '' ?>>Verified</option>
+                                            <option value="Unverified" <?= $tutor['status'] === 'Unverified' ? 'selected' : '' ?>>Unverified</option>
+                                        </select>
+                                    </p>
+
+                                    <div class="button-group">
+                                        <button type="button" class="cancel-btn" id="cancel-btn-<?= $index ?>" onclick="cancelEdit(<?= $index ?>)" style="display:none;">CANCEL</button>
+                                        <button type="submit" class="update-btn" id="update-btn-<?= $index ?>" style="display:none;">UPDATE</button>
+                                        <button type="submit" class="delete-btn" id="delete-btn-<?= $index ?>" title="Delete Tutor" form="delete-form-<?= $index ?>">DELETE</button>
+                                                                    <button type="button" class="edit-btn" id="edit-btn-<?= $index ?>" onclick="enableEdit(<?= $index ?>)">EDIT</button>
+                                    </div>
+                
+                                </form>
+
+                                <form id="delete-form-<?= $index ?>" method="POST" action="../AdminPHP/delete_user.php" onsubmit="return confirm('Are you sure you want to delete this tutor?');" style="display:none;">
+                                    <input type="hidden" name="user_type" value="tutor">
+                                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($tutor['tutor_id']); ?>">
+                                </form>
+
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No tutors found.</p>
+                    <?php endif; ?>
+                </div>
+            </section>
 
             <section class="user-column">
                 <div class="column-header">
@@ -190,53 +202,23 @@ if (!isset($_SESSION['admin_id'])) {
         </div>
     </main>
 
-    <script>
-        function toggleSidebar() {
-            document.body.classList.toggle("sidebar-collapsed");
-        }
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Create Admin Account</h3>
+                <form id="adminForm" method="POST" action="">
+                <input type="text" name="first_name" placeholder="First Name" required>
+                <input type="text" name="middle_initial" placeholder="Middle Initial" maxlength="1">
+                <input type="text" name="last_name" placeholder="Last Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit" name="add_admin">ADD ADMIN</button>
+                </form>
+        </div>
+    </div>
 
-function enableEdit(index) {
-    const select = document.getElementById('status-' + index);
-    const editBtn = document.getElementById('edit-btn-' + index);
-    const cancelBtn = document.getElementById('cancel-btn-' + index);
-    const updateBtn = document.getElementById('update-btn-' + index);
-    const deleteBtn = document.getElementById('delete-btn-' + index);
-
-    select.disabled = false;
-    editBtn.style.display = 'none';
-    cancelBtn.style.display = 'inline-block';
-    updateBtn.style.display = 'inline-block';
-    deleteBtn.style.display = 'none';  // Hide DELETE when editing
-}
-
-function cancelEdit(index) {
-    const select = document.getElementById('status-' + index);
-    const editBtn = document.getElementById('edit-btn-' + index);
-    const cancelBtn = document.getElementById('cancel-btn-' + index);
-    const updateBtn = document.getElementById('update-btn-' + index);
-    const deleteBtn = document.getElementById('delete-btn-' + index);
-
-    select.disabled = true;
-
-    const originalValue = select.getAttribute('data-original');
-    if (originalValue) {
-        select.value = originalValue;
-    }
-
-    editBtn.style.display = 'inline-block';
-    cancelBtn.style.display = 'none';
-    updateBtn.style.display = 'none';
-    deleteBtn.style.display = 'inline-block';  // Show DELETE again when canceling
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('select[id^="status-"]').forEach(select => {
-        select.setAttribute('data-original', select.value);
-    });
-});
-
-
-    </script>
+    <script src="../AdminJS/manage_users.js"></script>
     <script src="../../time-date-sidebar.js"></script>
 </body>
 </html>
