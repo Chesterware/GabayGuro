@@ -99,7 +99,7 @@ if (!isset($_SESSION['admin_id'])) {
         </div>
     <?php endforeach; ?>
 
-<script src="../AdminJS/time_date.js"></script>
+<script src="../../time-date-sidebar.js"></script>
 <script src="../AdminJS/tutor_verification.js"></script>
 </body>
 </html>
