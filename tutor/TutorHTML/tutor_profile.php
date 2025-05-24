@@ -16,6 +16,7 @@ if (!isset($_SESSION['tutor_id'])) {
     <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../TutorCSS/tutor_profile.css">
+    <link rel="stylesheet" href="../TutorCSS/index.css">
 </head>
 
 <body>

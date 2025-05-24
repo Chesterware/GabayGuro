@@ -57,23 +57,26 @@ body.sidebar-collapsed .sidebar {
 }
 
 .btn {
-    width: 100%;
-    padding: 15px;
     background-color: transparent; 
+    border: none;
+    box-shadow: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     color: #E6ECF1;
+    padding: 15px 20px;
+    width: 100%;
     text-align: left;
     font-size: 1rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
     padding-left: 20px;
-    transition: all 0.3s ease;
     border-radius: 8px;
     margin-top: 5px;
     margin-bottom: 5px;
-    box-sizing: border-box;
-    text-decoration: none;
-    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .btn.active {
@@ -97,11 +100,6 @@ body.sidebar-collapsed .sidebar {
     background-color: #005F8F;
     color: #FFFFFF;
     border-color: #005F8F;
-}
-
-.btn a {
-    text-decoration: none !important;
-    color: inherit;
 }
 
 .separator {
@@ -157,4 +155,4 @@ body.sidebar-collapsed .header-title {
     font-size: 1.2rem;
     margin-left: auto;
     color: #003153;
-}
+}   
