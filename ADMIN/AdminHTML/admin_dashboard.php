@@ -53,11 +53,6 @@ require_once '../AdminPHP/auth_admin.php';
     </div>
 
     <div class="status-users-container">
-        <div class="row titles-row">
-            <div class="col title">BOOKING STATUS COUNT</div>
-            <div class="col title">USERS COUNT</div>
-        </div>
-
         <div class="row counts-row">
             <div class="col">PENDING<br><strong><?= $statusCounts['PENDING'] ?></strong></div>
             <div class="col">ONGOING<br><strong><?= $statusCounts['ONGOING'] ?></strong></div>
@@ -118,8 +113,8 @@ const subjectChart = new Chart(ctx, {
         datasets: [{
             label: 'Number of Requests',
             data: <?= json_encode(array_column($subjectData, 'count')) ?>,
-            backgroundColor: '#003153',
-            borderColor: '#001F3F',
+            backgroundColor: '#005F8F',
+            borderColor: '#003153',
             borderWidth: 2,
             borderRadius: 6,
         }]
@@ -131,53 +126,64 @@ const subjectChart = new Chart(ctx, {
             padding: {
                 left: 20,
                 right: 20,
-                top: 5,
-                bottom: 100  
+                top: 10,
+                bottom: 80
             }
         },
         scales: {
             y: {
                 beginAtZero: true,
-                min: 0,
                 ticks: {
                     precision: 0,
                     color: '#003153',
                     font: {
-                        size: 12
+                        size: 14,
+                        weight: 'bold'
                     },
-                    padding: 10 
+                    padding: 8
                 },
                 grid: {
                     drawBorder: true,
-                    drawTicks: true,
+                    color: '#E6ECF1',
+                    borderColor: '#003153'
                 }
             },
             x: {
                 ticks: {
-                    color: '#000',
+                    color: '#003153',
                     font: {
-                        size: 12
+                        size: 14
                     }
                 },
                 grid: {
-                    drawBorder: false,
                     drawTicks: false,
+                    drawBorder: false,
+                    color: '#F0F4F8'
                 }
             }
         },
         plugins: {
             legend: {
                 labels: {
-                    color: '#444',
+                    color: '#003153',
                     font: {
-                        size: 14
+                        size: 16,
+                        weight: 'bold'
                     }
                 }
+            },
+            tooltip: {
+                backgroundColor: '#003153',
+                titleColor: '#FFC857',
+                bodyColor: '#E6ECF1',
+                borderColor: '#005F8F',
+                borderWidth: 1
             }
         }
     }
 });
 </script>
+
 <script>
 const pieCtx = document.getElementById('userPieChart').getContext('2d');
 const userPieChart = new Chart(pieCtx, {
@@ -186,34 +192,38 @@ const userPieChart = new Chart(pieCtx, {
         labels: ['Learners', 'Tutors'],
         datasets: [{
             data: [<?= $learnerCount ?>, <?= $tutorCount ?>],
-            backgroundColor: ['#3498db', '#003153'],
-            borderColor: ['#2980b9', '#27ae60'],
-            borderWidth: 1
+            backgroundColor: ['#FFC857', '#005F8F'],
+            borderColor: ['#FFFFFF', '#FFFFFF'],
+            borderWidth: 2
         }]
     },
     options: {
         responsive: true,
         maintainAspectRatio: false,
         layout: {
-        padding: {
-            top: 10,
-            bottom: 100,
-        }
-    },  
+            padding: {
+                top: 10,
+                bottom: 100
+            }
+        },
         plugins: {
             legend: {
                 position: 'bottom',
                 labels: {
-                    color: '#444',
+                    color: '#003153',
                     font: {
-                        size: 20
+                        size: 16,
+                        weight: 'bold'
                     }
                 }
             },
             tooltip: {
+                backgroundColor: '#003153',
+                titleColor: '#FFC857',
+                bodyColor: '#E6ECF1',
                 callbacks: {
                     label: function(context) {
-                        return context.label + ': ' + context.parsed + ' users';
+                        return `${context.label}: ${context.parsed} users`;
                     }
                 }
             }
