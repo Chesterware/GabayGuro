@@ -20,24 +20,6 @@ if (!isset($_SESSION['admin_id'])) {
     <link rel="stylesheet" href="../AdminCSS/index.css" />
     <link rel="stylesheet" href="../AdminCSS/tutor_verification.css" />
 </head>
-<style>
-.download-btn {
-    display: inline-block;
-    color: #003153;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: bold;
-    font-style: italic;
-}
-
-.download-btn:hover {
-    text-decoration: underline;
-}
-.tutor-info .download-btn:nth-of-type(2) {
-    margin-left: 10px;
-}
-
-</style>
 <body class="sidebar-collapsed">
     <div class="header-title">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">

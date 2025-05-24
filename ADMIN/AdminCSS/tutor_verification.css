@@ -1,8 +1,8 @@
 .status-buttons {
     display: flex;
-    gap: 10px;
-    margin: 130px 20px 0 250px;
     flex-wrap: wrap;
+    gap: 12px;
+    margin: 120px 20px 20px 240px;
     transition: margin-left 0.3s ease;
 }
 
@@ -11,47 +11,47 @@ body.sidebar-collapsed .status-buttons {
 }
 
 .status-buttons a {
-    flex: 1;
+    flex: 1 1 auto;
     text-align: center;
-    text-decoration: none;
-    padding: 10px 18px;
-    border-radius: 5px;
-    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
     color: #003153;
-    font-weight: 600;
+    background-color: transparent;
     border: 2px solid #003153;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    user-select: none;
     cursor: pointer;
-    display: inline-block;
-    box-sizing: border-box;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.status-buttons a:not(.active):hover {
-    background-color: #003153;
+.status-buttons a:hover:not(.active),
+.status-buttons a:focus-visible:not(.active) {
+    background-color: #005F8F;
     color: #FFFFFF;
-    border-color: #003153;
+    border-color: #005F8F;
 }
 
 .status-buttons a.active {
     background-color: #003153;
     color: #FFFFFF;
-    border: 2px solid #003153;
-}
-
-body.sidebar-collapsed .status-buttons a {
-    padding: 10px 12px;
+    border-color: #003153;
 }
 
 @media (max-width: 600px) {
     .status-buttons {
         flex-direction: column;
+        margin-left: 20px !important;
         gap: 8px;
+    }
+
+    .status-buttons a {
+        width: 100%;
     }
 }
 
 .tutor-section {
-    margin: 40px 20px 40px 250px;
+    margin: 40px 20px 40px 240px;
     transition: margin-left 0.3s ease;
 }
 
@@ -60,76 +60,95 @@ body.sidebar-collapsed .tutor-section {
 }
 
 .status-heading {
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #003153;
-    margin-bottom: 15px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .tutor-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 2fr));
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
     gap: 20px;
 }
 
 .tutor-card {
     border: 2px solid #003153;
     border-radius: 10px;
-    padding: 15px 20px;
-    background-color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    background-color: #FFFFFF;
+    padding: 20px 24px;
+    box-shadow: 0 2px 6px rgba(0, 49, 83, 0.08);
     transition: transform 0.3s ease;
 }
 
-.tutor-card h4 {
-    margin: 0;
-    color: #003153;
+.tutor-card:hover {
+    transform: translateY(-2px);
 }
 
+.tutor-card h4,
 .tutor-name {
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin: 0 0 12px;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #003153;
 }
 
 .tutor-info {
-  display: flex;
-
-  align-items: flex-start;
-  margin-bottom: 5px;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 
 .tutor-info .label {
-white-space: nowrap;  
-  flex: 0 0 180px;
-  font-weight: normal;
-  color: #003153;
+    flex: 0 0 180px;
+    font-weight: 500;
+    color: #003153;
+    white-space: nowrap;
 }
 
 .tutor-info strong {
-  flex: 1;
-  color: #003153;
-  white-space: normal;
-  word-wrap: break-word;
+    flex: 1;
+    font-weight: bold;
+    color: #003153;
+    word-break: break-word;
 }
 
+.download-btn {
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+    color: #005F8F;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease;
+}
+
+.download-btn:hover {
+    text-decoration: underline;
+}
+
+.tutor-info .download-btn:nth-of-type(2) {
+    margin-left: 10px;
+}
 
 .verify-form {
     display: flex;
     gap: 10px;
     width: 100%;
+    margin-top: 12px;
 }
 
 .verify-btn {
     flex: 1;
-    padding: 8px 0;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    border: 2px solid transparent;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    font-family: Arial, sans-serif;
+    padding: 10px 0;
     text-align: center;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-family: inherit;
 }
 
 .verify-btn[data-status="verified"] {
@@ -150,7 +169,7 @@ white-space: nowrap;
 }
 
 .verify-btn[data-status="unverified"]:hover {
-    background-color: #003153;
-    color: white;
-    border-color: #003153;
+    background-color: #005F8F;
+    color: #ffffff;
+    border-color: #005F8F;
 }
