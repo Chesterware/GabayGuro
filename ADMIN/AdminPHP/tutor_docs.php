@@ -22,6 +22,9 @@ $column = $allowed_types[$type];
 
 $sql = "SELECT $column, email FROM tutor WHERE tutor_id = ?";
 $stmt = $conn->prepare($sql);
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
 $stmt->bind_param("i", $tutor_id);
 $stmt->execute();
 $stmt->store_result();
@@ -30,17 +33,15 @@ if ($stmt->num_rows === 0) {
     die("No file found");
 }
 
-$stmt->bind_result($file_path, $email);
+$stmt->bind_result($file_content, $email);
 $stmt->fetch();
 
-if (empty($file_path) || !file_exists(__DIR__ . '/../../' . $file_path)) {
+if (empty($file_content)) {
     die("File not available");
 }
 
-$full_path = realpath(__DIR__ . '/../../' . $file_path);
-
 $finfo = new finfo(FILEINFO_MIME_TYPE);
-$mime = $finfo->file($full_path);
+$mime = $finfo->buffer($file_content);
 
 $extension = '';
 switch ($mime) {
@@ -57,12 +58,12 @@ switch ($mime) {
         $extension = 'bin';
 }
 
-$filename = $type . '_' . $email . '.' . $extension;
+$filename = "{$type}_{$email}.{$extension}";
 
 header("Content-Type: $mime");
-header('Content-Disposition: attachment; filename="' . $filename . '"');
-header('Content-Length: ' . filesize($full_path));
+header("Content-Disposition: attachment; filename=\"$filename\"");
+header("Content-Length: " . strlen($file_content));
 
-readfile($full_path);
+echo $file_content;
 exit;
 ?>

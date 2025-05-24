@@ -1,104 +1,144 @@
 <?php
 require_once(__DIR__ . '/../db_connection.php');
+require_once 'tutor_tokens.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+$errors = [];
+
+$specializations = [];
+$res = $conn->query("SELECT specialization_id, specialization_name, category FROM specializations ORDER BY category, specialization_name");
+while ($row = $res->fetch_assoc()) {
+    $specializations[] = $row;
 }
-
-if (empty($_SESSION['register_email']) || empty($_SESSION['register_password']) || (isset($_SESSION['register_role']) && $_SESSION['register_role'] !== 'tutor')) {
-    header("Location: register.php");
-    exit();
-}
-
-$error = '';
-$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $first_name = isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : '';
-    $middle_initial = isset($_POST['middle_initial']) ? htmlspecialchars($_POST['middle_initial']) : '';
-    $last_name = isset($_POST['last_name']) ? htmlspecialchars($_POST['last_name']) : '';
-    $birthdate = isset($_POST['birthdate']) ? $_POST['birthdate'] : '';
-    $specializations = isset($_POST['specializations']) ? $_POST['specializations'] : array();
-    $educational_attainment = isset($_POST['educational_attainment']) ? $_POST['educational_attainment'] : '';
-    $years_of_experience = isset($_POST['years_of_experience']) ? $_POST['years_of_experience'] : '';
-    $rate_per_hour = isset($_POST['rate_per_hour']) ? (float)$_POST['rate_per_hour'] : 0;
-    $rate_per_session = isset($_POST['rate_per_session']) ? (float)$_POST['rate_per_session'] : 0;
+    $password = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+    $first_name = trim($_POST['first_name'] ?? '');
+    $middle_initial = trim($_POST['middle_initial'] ?? '');
+    $last_name = trim($_POST['last_name'] ?? '');
+    $birthdate = $_POST['birthdate'] ?? '';
+    $educational_attainment = $_POST['educational_attainment'] ?? '';
+    $years_of_experience = $_POST['years_of_experience'] ?? '';
+    $rate_per_hour = $_POST['rate_per_hour'] ?? null;
+    $rate_per_session = $_POST['rate_per_session'] ?? null;
+    $selected_specializations = $_POST['specializations'] ?? [];
 
-    $diploma_path = '';
-    $certificates_path = '';
-
-    $uploadsDir = __DIR__ . '/../uploads/';
-    $diplomasDir = $uploadsDir . 'diplomas/';
-    $certificatesDir = $uploadsDir . 'certificates/';
-
-    if (!is_dir($diplomasDir)) {
-        mkdir($diplomasDir, 0755, true);
-    }
-    if (!is_dir($certificatesDir)) {
-        mkdir($certificatesDir, 0755, true);
+    if ($password === '') {
+        $errors[] = "Password is required.";
+    } elseif ($password !== $confirm_password) {
+        $errors[] = "Passwords do not match.";
+    } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $password)) {
+        $errors[] = "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number.";
     }
 
-    $allowed_types = ['application/pdf', 'image/jpeg', 'image/png'];
+    if ($first_name === '' || $last_name === '' || $birthdate === '' || $educational_attainment === '' || $years_of_experience === '') {
+        $errors[] = "Please fill in all required fields.";
+    }
 
-    if (isset($_FILES['diploma']) && $_FILES['diploma']['error'] === UPLOAD_ERR_OK) {
-        $file_type = mime_content_type($_FILES['diploma']['tmp_name']);
+    if ($middle_initial !== '' && strlen($middle_initial) !== 1) {
+        $errors[] = "Middle initial must be exactly one character.";
+    }
 
-        if (in_array($file_type, $allowed_types)) {
-            $diploma_name = uniqid() . '_' . basename($_FILES['diploma']['name']);
-            $diploma_full_path = $diplomasDir . $diploma_name;
+    if ($rate_per_hour !== null && $rate_per_hour !== '' && (!is_numeric($rate_per_hour) || $rate_per_hour < 0)) {
+        $errors[] = "Rate per hour must be a positive number.";
+    }
+    if ($rate_per_session !== null && $rate_per_session !== '' && (!is_numeric($rate_per_session) || $rate_per_session < 0)) {
+        $errors[] = "Rate per session must be a positive number.";
+    }
 
-            if (move_uploaded_file($_FILES['diploma']['tmp_name'], $diploma_full_path)) {
-                $diploma_path = 'uploads/diplomas/' . $diploma_name;
-            } else {
-                $error = "Failed to move the uploaded diploma file.";
+    if (!isset($_FILES['diploma']) || $_FILES['diploma']['error'] !== UPLOAD_ERR_OK) {
+        $errors[] = "Diploma file is required.";
+    } else {
+        $diplomaContent = file_get_contents($_FILES['diploma']['tmp_name']);
+    }
+
+    $otherCertificatesContent = null;
+    if (isset($_FILES['other_certificates']) && isset($_FILES['other_certificates']['tmp_name'][0]) && $_FILES['other_certificates']['error'][0] !== UPLOAD_ERR_NO_FILE) {
+        $otherCertificatesContent = file_get_contents($_FILES['other_certificates']['tmp_name'][0]);
+    }
+
+    if (!is_array($selected_specializations)) {
+        $errors[] = "Invalid specializations selected.";
+    } else {
+        $valid_spec_ids = array_column($specializations, 'specialization_id');
+        foreach ($selected_specializations as $spec_id) {
+            if (!in_array($spec_id, $valid_spec_ids, true)) {
+                $errors[] = "Invalid specialization selected.";
+                break;
             }
-        } else {
-            $error = "Diploma must be a PDF, JPG, or PNG file.";
         }
     }
 
-    if (isset($_FILES['certificates']) && $_FILES['certificates']['error'] === UPLOAD_ERR_OK) {
-        $file_type = mime_content_type($_FILES['certificates']['tmp_name']);
+    if (empty($errors)) {
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        if (in_array($file_type, $allowed_types)) {
-            $certificates_name = uniqid() . '_' . basename($_FILES['certificates']['name']);
-            $certificates_full_path = $certificatesDir . $certificates_name;
+        $stmt = $conn->prepare("UPDATE tutor SET 
+            password = ?, 
+            first_name = ?, 
+            middle_initial = ?, 
+            last_name = ?, 
+            birthdate = ?, 
+            educational_attainment = ?, 
+            years_of_experience = ?, 
+            diploma = ?, 
+            other_certificates = ?, 
+            rate_per_hour = ?, 
+            rate_per_session = ?, 
+            verification_token = NULL, 
+            verification_expires = NULL, 
+            status = 'For Verification' 
+            WHERE tutor_id = ?");
 
-            if (move_uploaded_file($_FILES['certificates']['tmp_name'], $certificates_full_path)) {
-                $certificates_path = 'uploads/certificates/' . $certificates_name;
-            } else {
-                $error = "Failed to move the uploaded certificates file.";
-            }
-        } else {
-            $error = "Certificates must be a PDF, JPG, or PNG file.";
+        if (!$stmt) {
+            die("Prepare failed: " . $conn->error);
         }
-    }
 
-    if (empty($error)) {
-        $stmt = $conn->prepare("INSERT INTO tutor (email, password, first_name, middle_initial, last_name, birthdate, educational_attainment, years_of_experience, diploma, other_certificates, rate_per_hour, rate_per_session, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'For Verification')");
-        $stmt->bind_param("ssssssssssdd", $_SESSION['register_email'], $_SESSION['register_password'], $first_name, $middle_initial, $last_name, $birthdate, $educational_attainment, $years_of_experience, $diploma_path, $certificates_path, $rate_per_hour, $rate_per_session);
+        $rate_per_hour = ($rate_per_hour === '' || $rate_per_hour === null) ? null : floatval($rate_per_hour);
+        $rate_per_session = ($rate_per_session === '' || $rate_per_session === null) ? null : floatval($rate_per_session);
+
+        $null = null;
+
+        $stmt->bind_param(
+            "sssssssbbddi",
+            $password_hash,
+            $first_name,
+            $middle_initial,
+            $last_name,
+            $birthdate,
+            $educational_attainment,
+            $years_of_experience,
+            $null,
+            $null,
+            $rate_per_hour,
+            $rate_per_session,
+            $tutor['tutor_id']
+        );
+
+        $stmt->send_long_data(7, $diplomaContent);
+        if ($otherCertificatesContent !== null) {
+            $stmt->send_long_data(8, $otherCertificatesContent);
+        }
 
         if ($stmt->execute()) {
-            $tutor_id = $conn->insert_id;
+            $delStmt = $conn->prepare("DELETE FROM tutor_specializations WHERE tutor_id = ?");
+            $delStmt->bind_param("i", $tutor['tutor_id']);
+            $delStmt->execute();
+            $delStmt->close();
 
-            foreach ($specializations as $spec_id) {
-                $spec_id = (int)$spec_id;
-                $spec_stmt = $conn->prepare("INSERT INTO tutor_specializations (tutor_id, specialization_id) VALUES (?, ?)");
-                $spec_stmt->bind_param("ii", $tutor_id, $spec_id);
-                $spec_stmt->execute();
-                $spec_stmt->close();
+            $insStmt = $conn->prepare("INSERT INTO tutor_specializations (tutor_id, specialization_id) VALUES (?, ?)");
+            foreach ($selected_specializations as $spec_id) {
+                $insStmt->bind_param("ii", $tutor['tutor_id'], $spec_id);
+                $insStmt->execute();
             }
+            $insStmt->close();
 
-            $stmt->close();
-
-            unset($_SESSION['register_email']);
-            unset($_SESSION['register_password']);
-            unset($_SESSION['register_role']);
-
-            $success = "Registration successful! Your application is under review.";
+            header("Location: tutor/TutorHTML/ratings_review.php");
+            exit;
         } else {
-            $error = "Registration failed. Please try again.";
+            $errors[] = "Database error: " . $stmt->error;
         }
+
+        $stmt->close();
     }
 }
 ?>

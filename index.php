@@ -27,7 +27,7 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
         .then(() => console.log('Service Worker registered!'))
         .catch(err => console.error('Service Worker registration failed:', err));
     }
-</script>
+</script> 
 
 
 <!DOCTYPE html>
@@ -90,7 +90,7 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
             <button type="submit" class="login-btn">LOG IN</button>
 
             <div class="register-link">
-                Don't have an account? <a href="register.php">REGISTER</a>
+                Don't have an account? <a href="confirm_email.php">REGISTER</a>
             </div>
         </form>
     </main>
