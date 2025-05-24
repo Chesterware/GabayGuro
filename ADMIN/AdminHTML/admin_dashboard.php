@@ -15,7 +15,6 @@ require_once '../AdminPHP/auth_admin.php';
     <link rel="stylesheet" href="../AdminCSS/admin_dashboard.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
 </head>
 <body class="sidebar-collapsed">
     <div class="header-title">
