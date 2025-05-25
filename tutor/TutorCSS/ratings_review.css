@@ -99,10 +99,16 @@ body.sidebar-collapsed .learner-review {
 
 .no-reviews {
     background-color: #FFFFFF;
-    padding: 20px;
+    padding: 10px;
+    margin: 0 10px 0 240px;
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.sidebar-collapsed .no-reviews{
+    margin: 0 10px 0 10px;
 }
 
 .no-reviews p {

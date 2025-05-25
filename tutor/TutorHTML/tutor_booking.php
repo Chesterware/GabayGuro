@@ -94,12 +94,12 @@ require_once '../TutorPHP/auth_tutor.php';
                             <button class="decline-btn">DECLINE</button>
                         <?php endif; ?>
                     </div>
-                </div>
-            <?php endwhile; ?>
+            </div>
+        <?php endwhile; ?>
+
         <?php else : ?>
-            <p>No bookings found.</p>
+            <p class="no-bookings">No bookings found.</p>
         <?php endif; ?>
-        </div>
 
         <script src="../TutorJS/tutor_booking.js"></script>
         <script src="../../time-date-sidebar.js"></script>

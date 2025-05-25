@@ -206,3 +206,25 @@ textarea {
 .confirm-button:hover {
     background-color: #1c2b42;
 }
+
+.no-bookings {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #003153;
+    font-size: 1.2rem;
+    margin-top: 40px;
+    font-weight: bold;
+    margin: 20px 10px 0 240px;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    width: calc(100% - 290px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.sidebar-collapsed .no-bookings {
+    width: calc(100% - 60px);
+    margin: 20px 10px 0 10px;
+}

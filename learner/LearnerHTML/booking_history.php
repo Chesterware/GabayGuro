@@ -117,14 +117,11 @@ require_once '../LearnerPHP/auth_learner.php';
                 </div>
             </div>
         <?php endwhile; ?>
-    <?php else : ?>
-        <div class="booking-entry">
-            <div class="booking-info-line">
-                <div class="no-bookings">No bookings found.</div>
-            </div>
-        </div>
-    <?php endif; ?>
-    
+
+        <?php else : ?>
+            <p class="no-bookings">No bookings found.</p>
+        <?php endif; ?>
+
     <script src="../LearnerJS/booking_history.js"></script>
     <script src="../../time-date-sidebar.js"></script>
 </body>
