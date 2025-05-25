@@ -13,7 +13,10 @@ if (!isset($_SESSION['learner_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
-    <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#003153">
+    <link rel="icon" href="/GabayGuroLogo.png">
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../LearnerCSS/learner_profile.css">
     <link rel="stylesheet" href="../LearnerCSS/index.css">
@@ -278,5 +281,13 @@ if (!isset($_SESSION['learner_id'])) {
         togglePassword.addEventListener('click', syncTogglePasswordVisibility);
         toggleConfirmPassword.addEventListener('click', syncTogglePasswordVisibility);
     </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registered!'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script> 
 </body>
 </html>

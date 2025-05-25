@@ -7,7 +7,6 @@ $success_message = "";
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
     
-    // Check if token exists and is not expired
     $stmt = $conn->prepare("SELECT admin_id FROM admin WHERE reset_token = ? AND reset_token_expires > NOW()");
     $stmt->bind_param("s", $token);
     $stmt->execute();
@@ -51,7 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password - Gabay Guro Administrator</title>
+    <title>Reset Password</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#003153">
+    <link rel="icon" href="/GabayGuroLogo.png">
     <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -104,5 +106,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registered!'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script> 
 </body>
 </html>

@@ -10,7 +10,10 @@ require_once '../TutorPHP/auth_tutor.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking History</title>
-    <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#003153">
+    <link rel="icon" href="/GabayGuroLogo.png">
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../TutorCSS/index.css">
     <link rel="stylesheet" href="../TutorCSS/tutor_booking.css">
@@ -58,7 +61,6 @@ require_once '../TutorPHP/auth_tutor.php';
         <a href="#" class="status-btn booking-cancelled" onclick="selectStatus(event, 'cancelled')">CANCELLED</a>
     </div>
 
-    <div class="booking-entries">
         <?php if ($result->num_rows > 0) : ?>
             <?php while ($row = $result->fetch_assoc()) : ?>
                 <div class="learner-booking-entry"
@@ -94,14 +96,23 @@ require_once '../TutorPHP/auth_tutor.php';
                             <button class="decline-btn">DECLINE</button>
                         <?php endif; ?>
                     </div>
-            </div>
+                </div>
         <?php endwhile; ?>
-
         <?php else : ?>
-            <p class="no-bookings">No bookings found.</p>
         <?php endif; ?>
 
-        <script src="../TutorJS/tutor_booking.js"></script>
-        <script src="../../time-date-sidebar.js"></script>
+        <p class="no-bookings">No bookings found.</p>
+
+    <script src="../TutorJS/tutor_booking.js"></script>
+    <script src="../../time-date-sidebar.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registered!'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script> 
+
 </body>
 </html>

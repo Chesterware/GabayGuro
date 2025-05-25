@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Register - GABAYGURO</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#003153">
+    <link rel="icon" href="/GabayGuroLogo.png">
     <link rel="icon" href="GabayGuroLogo.png" type="image/png" />
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400;500&family=Raleway:wght@700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="test_register.css" />
@@ -49,5 +52,13 @@
             </form>
         </div>
     </div>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registered!'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script> 
 </body>
 </html>

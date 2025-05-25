@@ -10,7 +10,10 @@ require_once '../AdminPHP/auth_admin.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard</title>
-    <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#003153">
+    <link rel="icon" href="/GabayGuroLogo.png">
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link rel="stylesheet" href="../AdminCSS/index.css" />
     <link rel="stylesheet" href="../AdminCSS/admin_dashboard.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
@@ -232,6 +235,14 @@ const userPieChart = new Chart(pieCtx, {
 });
 </script>
 
-<script src="../../time-date-sidebar.js"></script>
+    <script src="../../time-date-sidebar.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registered!'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script> 
 </body>
 </html>

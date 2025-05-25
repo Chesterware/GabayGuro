@@ -10,7 +10,10 @@ require_once '../LearnerPHP/auth_learner.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Find Tutors</title>
-    <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#003153">
+    <link rel="icon" href="/GabayGuroLogo.png">
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../LearnerCSS/index.css" />
     <link rel="stylesheet" href="../LearnerCSS/booking_history.css" />
@@ -124,5 +127,13 @@ require_once '../LearnerPHP/auth_learner.php';
 
     <script src="../LearnerJS/booking_history.js"></script>
     <script src="../../time-date-sidebar.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registered!'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script> 
 </body>
 </html>

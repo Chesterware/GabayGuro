@@ -12,6 +12,10 @@ $errors = [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complete Learner Registration</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#003153">
+    <link rel="icon" href="/GabayGuroLogo.png">
+    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
 </head>
 <body>
     <h2>Welcome, <?= htmlspecialchars($learner['email']) ?>. Complete your profile:</h2>
@@ -85,5 +89,13 @@ $errors = [];
             document.getElementById('grade_level').addEventListener('change', toggleStrand);
         });
     </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registered!'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script> 
 </body>
 </html>
