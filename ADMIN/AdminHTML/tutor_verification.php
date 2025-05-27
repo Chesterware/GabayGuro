@@ -14,7 +14,7 @@ if (!isset($_SESSION['admin_id'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Tutor Verification</title>
+    <title>Verify Tutors</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#003153">
     <link rel="icon" href="/GabayGuroLogo.png">
@@ -28,7 +28,7 @@ if (!isset($_SESSION['admin_id'])) {
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
         </button>
-        <div class="page-label">TUTOR VERIFICATION</div>
+        <div class="page-label">VERIFY TUTORS</div>
         <div class="datetime" id="datetime"></div>
     </div>
 
@@ -42,7 +42,7 @@ if (!isset($_SESSION['admin_id'])) {
             <button type="submit" class="btn"><i class="fas fa-tachometer-alt"></i>Dashboard</button>
         </form>
         <form action="" method="GET">
-            <button type="submit" class="btn active"><i class="fas fa-check-circle"></i>Tutor Verification</button>
+            <button type="submit" class="btn active"><i class="fas fa-check-circle"></i>Verify Tutors</button>
         </form>
         <form action="manage_users.php" method="GET">
             <button type="submit" class="btn"><i class="fas fa-users-cog"></i>Manage Users</button>

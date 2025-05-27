@@ -135,3 +135,69 @@ body.sidebar-collapsed .chart-box {
     border-radius: 12px;
     display: block;
 }
+
+@media (max-width: 768px) {
+            .header-title {
+                padding: 15px !important;
+            }
+            
+            .page-label {
+                font-size: 1.5rem !important;
+                margin-left: 15px !important;
+            }
+            
+            .datetime {
+                font-size: 1rem !important;
+            }
+            
+            .status-users-container {
+                margin-top: 90px !important;
+                margin-left: 15px !important;
+                margin-right: 15px !important;
+                width: calc(100% - 30px) !important;
+            }
+            
+            .counts-row {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .col.title {
+                grid-column: span 2;
+                font-size: 24px !important;
+            }
+            
+            .chart-box {
+                flex-direction: column;
+                padding: 15px !important;
+                margin-left: 15px !important;
+                margin-right: 15px !important;
+            }
+            
+            .chart-container {
+                height: 350px;
+            }
+            
+            .chart-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .filter-form {
+                width: 100%;
+            }
+            
+            .filter-form select {
+                width: 100% !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .col strong {
+                font-size: 18px !important;
+            }
+            
+            .chart-header h3 {
+                font-size: 1.2rem !important;
+            }
+        }

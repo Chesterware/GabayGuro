@@ -37,7 +37,7 @@ require_once '../AdminPHP/auth_admin.php';
             <button type="submit" class="btn active"><i class="fas fa-tachometer-alt"></i>Dashboard</button>
         </form>
         <form action="tutor_verification.php" method="GET">
-            <button type="submit" class="btn"><i class="fas fa-check-circle"></i>Tutor Verification</button>
+            <button type="submit" class="btn"><i class="fas fa-check-circle"></i>Verify Tutors</button>
         </form>
         <form action="manage_users.php" method="GET">
             <button type="submit" class="btn"><i class="fas fa-users-cog"></i>Manage Users</button>
