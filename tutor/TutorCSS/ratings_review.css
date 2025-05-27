@@ -5,46 +5,44 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    margin: 130px 10px 30px 240px;
+    margin: 100px 10px 30px 240px;
     transition: all 0.3s ease;
 }
 
 body.sidebar-collapsed .tutor-rating {
-    margin: 130px 10px 30px 10px;
+    margin: 100px 10px 30px 10px;
 }
 
 .tutor-rating .icon-column {
-    flex: 0 0 15%;
+    flex: 0 0 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .tutor-rating .info-column {
-    flex: 0 0 85%;
-    padding-left: 20px;
+    flex: 0 0 80%;
+    padding-left: 15px;
 }
 
 .tutor-icon {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
 }
 
 .tutor-name {
-    font-size: 1.3em;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #003153;
-    margin-bottom: 10px;
-    text-align: left;
+    margin-bottom: 8px;
 }
 
 .rating,
 .total-bookings {
-    font-size: 1.1em;
+    font-size: 1rem;
     color: #003153;
-    font-weight: bold;
     margin-bottom: 5px;
 }
 
@@ -54,7 +52,6 @@ body.sidebar-collapsed .tutor-rating {
 }
 
 .learner-review {
-    margin: 20px 10px 0 10px;
     display: flex;
     background-color: #fff;
     padding: 15px;
@@ -72,10 +69,7 @@ body.sidebar-collapsed .learner-review {
     flex-shrink: 0;
     width: 60px;
     height: 60px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-right: 15px;
 }
 
 .learner-icon {
@@ -89,30 +83,38 @@ body.sidebar-collapsed .learner-review {
     flex-grow: 1;
 }
 
+.review-rating {
+    margin-bottom: 5px;
+}
+
+.rating-value {
+    margin-left: 5px;
+    font-weight: bold;
+    color: #003153;
+}
+
 .learner-review-text {
-    font-size: 1em;
+    font-size: 0.95rem;
     color: #000000;
-    line-height: .5;
-    white-space: pre-line;
-    margin-top: 10px;
+    line-height: 1.4;
+    margin-top: 5px;
 }
 
 .no-reviews {
     background-color: #FFFFFF;
-    padding: 10px;
-    margin: 0 10px 0 240px;
+    padding: 20px;
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    margin: 20px 10px 0 240px;
 }
 
-body.sidebar-collapsed .no-reviews{
-    margin: 0 10px 0 10px;
+body.sidebar-collapsed .no-reviews {
+    margin: 20px 10px 0 10px;
 }
 
 .no-reviews p {
-    font-size: 1.1em;
+    font-size: 1rem;
     color: #003153;
 }
 
@@ -120,4 +122,79 @@ body.sidebar-collapsed .no-reviews{
 .fas.fa-star-half-alt,
 .far.fa-star {
     color: #003153;
+    font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .tutor-rating {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 90px 10px 20px 10px;
+        padding: 15px;
+    }
+    
+    .tutor-rating .icon-column {
+        margin-bottom: 15px;
+    }
+    
+    .tutor-rating .info-column {
+        padding-left: 0;
+    }
+    
+    .tutor-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .tutor-name {
+        font-size: 1.1rem;
+    }
+    
+    .rating, .total-bookings {
+        font-size: 0.95rem;
+    }
+    
+    .learner-review {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 15px 10px;
+        padding: 12px;
+    }
+    
+    .learner-icon-column {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .no-reviews {
+        margin: 15px 10px;
+        padding: 15px;
+    }
+    
+    .no-reviews p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tutor-rating {
+        margin-top: 80px;
+    }
+    
+    .tutor-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .learner-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .learner-review-text {
+        font-size: 0.9rem;
+    }
 }
