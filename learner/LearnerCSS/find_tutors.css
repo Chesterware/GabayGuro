@@ -1,27 +1,27 @@
 .filter-top {
     background-color: transparent;
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
-    margin: 90px 10px 0 240px;
+    margin: 90px 15px 15px 15px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     transition: all 0.3s ease;
 }
 
 body.sidebar-collapsed .filter-top {
-    margin: 90px 10px 0 10px;
+    margin: 90px 15px 15px 15px;
 }
 
 .dropdown-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     gap: 10px;
 }
 
 select {
     width: 100%;
-    padding: 10px 20px 10px 10px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
@@ -56,9 +56,9 @@ select {
 
 .choose-rate-btn {
     margin-top: 9px;
-    width: 48%;
+    width: 100%;
     height: 38px;
-    padding: 10px 30px;
+    padding: 10px;
     border: 2px solid #003153;
     color: #003153;
     background-color: transparent;
@@ -92,9 +92,9 @@ select {
 }
 
 .enter-rate input[type="number"] {
-    width: 48%;
+    width: 100%;
     height: 38px;
-    padding: 10px 20px 10px 10px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     color: #003153;
@@ -137,19 +137,19 @@ select {
 
 .subjects {
     background-color: #FFFFFF;
-    padding: 5px 20px 20px 20px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    grid-template-columns: 1fr;
+    gap: 10px;
     margin-top: 20px;
 }
 
 .subjects p {
     font-size: 1rem;
     margin-bottom: 5px;
-    grid-column: span 4;
+    grid-column: span 1;
     font-style: italic;
     font-weight: bold;
     color: #003153;
@@ -208,34 +208,34 @@ select {
 .sort-filter {
     color: #FFFFFF;
     display: flex;
-    align-items: center;
-    margin: 20px 0 20px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0;
 }
 
 .sort-filter label {
-    margin: 10px 10px 0 0;
+    margin: 10px 0 5px 0;
     color: #003153;
     font-style: italic;
     font-weight: bold;
 }
 
 .sort-filter select {
-    margin-left: 18px;
+    margin-left: 0;
     font-weight: bold; 
     padding: 12px;
     font-size: 1rem;
     border-radius: 5px;
-    width: 90%;
+    width: 100%;
     box-sizing: border-box;
 }
 
-/* Tutor Card Styles */
 .tutor-card-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     padding: 20px;
-    margin: 20px 20px 0px 260px;
+    margin: 20px 15px;
     box-sizing: border-box;
     border: 2px solid #003153;
     border-radius: 10px;
@@ -245,7 +245,7 @@ select {
 }
 
 body.sidebar-collapsed .tutor-card-wrapper {
-    margin-left: 30px;
+    margin: 20px 15px;
 }
 
 .tutor-profile-column {
@@ -265,6 +265,7 @@ body.sidebar-collapsed .tutor-card-wrapper {
 
 .tutor-details-column p {
     margin-bottom: -10px;
+    font-size: 14px;
 }
 
 .tutor-details-column strong {
@@ -292,9 +293,9 @@ body.sidebar-collapsed .tutor-card-wrapper {
 }
 
 .tutor-profile-icon {
-    width: 100px;
-    height: 100px;
-    font-size: 3rem;
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
     background-color: #eee;
     border-radius: 50%;
     display: flex;
@@ -306,6 +307,7 @@ body.sidebar-collapsed .tutor-card-wrapper {
 .tutor-name-heading {
     font-weight: bold;
     margin: 5px 0;
+    font-size: 1.2rem;
 }
 
 .star {
@@ -383,15 +385,15 @@ body.sidebar-collapsed .tutor-card-wrapper {
 .modal-content {
     background-color: #FFFFFF;
     border-radius: 8px;
-    padding: 30px;
-    width: 100%;
+    padding: 20px;
+    width: 90%;
     max-width: 450px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
 }
 
 h4 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #003153;
     margin: 0 0 20px 0;
     text-align: center;
@@ -400,19 +402,20 @@ h4 {
 .booking-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 .form-field {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
 }
 
 .form-field label {
     font-size: 1em;
     color: #003153;
-    width: 30%;
+    width: 100%;
     text-align: left;
 }
 
@@ -423,6 +426,7 @@ h4 {
     border: 1px solid #003153;
     border-radius: 5px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .form-field input:focus {
@@ -448,6 +452,7 @@ h4 {
 
 .form-action-buttons {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     gap: 10px;
 }
@@ -458,7 +463,7 @@ h4 {
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    width: 48%;
+    width: 100%;
     border: none;
     height: 50px;
 }
@@ -471,6 +476,7 @@ h4 {
 .cancel-booking {
     color: #003153;
     background-color: transparent;
+    border: 2px solid #003153;
 }
 
 .btn-book-now:hover {
@@ -481,113 +487,109 @@ h4 {
     border: 2px solid #003153;
 }
 
-/* Responsive Styles */
-@media (max-width: 1200px) {
+@media (min-width: 768px) {
+    .filter-top {
+        padding: 20px;
+        margin: 90px 10px 0 240px;
+    }
+    
+    body.sidebar-collapsed .filter-top {
+        margin: 90px 10px 0 10px;
+    }
+    
     .dropdown-container {
         grid-template-columns: repeat(2, 1fr);
     }
-}
-
-@media (max-width: 992px) {
-    .dropdown-container {
-        grid-template-columns: 1fr;
-    }
-
-    .tutor-filter {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-        padding: 15px 10px;
-    }
-
-    .btn {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-
-    .sidebar-label {
-        font-size: 1.25rem;
-    }
-
+    
     .choose-rate-btn {
-        width: 100%;
-        padding: 12px 0;
-        font-size: 1rem;
-    }
-
-    .apply-all {
-        font-size: 0.9rem;
-        padding: 10px 20px;
-    }
-
-    .tutor-filter {
-        justify-content: center;
-    }
-
-    .tutor-card-wrapper {
-        flex-direction: column;
-        align-items: center;
-        padding-top: 60px;
-    }
-
-    .tutor-profile-column,
-    .tutor-details-column {
-        width: 100%;
-        text-align: center;
-    }
-
-    .reviews-container.show {
-        max-height: 200px;
+        width: 48%;
     }
     
-    .view-reviews-btn {
-        width: 100%;
-        justify-content: center;
+    .enter-rate input[type="number"] {
+        width: 48%;
+    }
+    
+    .subjects {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .subjects p {
+        grid-column: span 2;
+    }
+    
+    .sort-filter {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .sort-filter label {
+        margin: 10px 10px 0 0;
+    }
+    
+    .sort-filter select {
+        margin-left: 18px;
+        width: auto;
+    }
+    
+    .tutor-card-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        margin: 20px 20px 0px 260px;
+    }
+    
+    body.sidebar-collapsed .tutor-card-wrapper {
+        margin-left: 30px;
+    }
+    
+    .tutor-details-column p {
+        font-size: inherit;
+    }
+    
+    .form-field {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .form-field label {
+        width: 30%;
+    }
+    
+    .form-action-buttons {
+        flex-direction: row;
+    }
+    
+    .btn-book-now,
+    .cancel-booking {
+        width: 48%;
+    }
+    
+    .cancel-booking {
+        border: none;
     }
 }
 
-@media (max-width: 480px) {
-    .choose-rate-btn {
-        width: 100%;
-        height: 50px;
-        font-size: 1rem;
+@media (min-width: 992px) {
+    .dropdown-container {
+        grid-template-columns: repeat(4, 1fr);
     }
-
-    .apply-all {
-        font-size: 1rem;
-        padding: 10px 15px;
+    
+    .subjects {
+        grid-template-columns: repeat(4, 1fr);
     }
-
-    .reviews-container.show {
-        max-height: 150px;
+    
+    .subjects p {
+        grid-column: span 4;
     }
+}
 
-    .form-action-buttons {
-        flex-direction: column;
+@media (min-width: 1200px) {
+    .tutor-profile-icon {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
     }
-
-    .btn-book-now,
-    .cancel-booking {
-        width: 100%;
-        margin: 10px 0;
-    }
-
-    .form-field {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .form-field label {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-
-    .form-field input,
-    .form-field select {
-        width: 100%;
+    
+    h4 {
+        font-size: 2rem;
     }
 }

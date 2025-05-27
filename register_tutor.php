@@ -15,21 +15,21 @@ $errors = [];
     <meta name="theme-color" content="#003153">
     <link rel="icon" href="/GabayGuroLogo.png">
     <link rel="icon" href="GabayGuroLogo.png" type="image/png">
+    <link rel="stylesheet" href="/iskol4rx/styles/register_tutor.css">
 </head>
 <body>
-    <h2>Welcome, <?= htmlspecialchars($tutor['email']) ?>. Complete your profile:</h2>
-
-    <?php if (!empty($errors)): ?>
-        <div style="color:red;">
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li><?= htmlspecialchars($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
-
     <form method="POST" enctype="multipart/form-data">
+        <h2>Welcome, <?= htmlspecialchars($tutor['email']) ?>. Complete your profile:</h2>
+        <?php if (!empty($errors)): ?>
+            <div style="color:red;">
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= htmlspecialchars($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        
         <label>Password: <input type="password" name="password" required></label><br>
         <label>Confirm Password: <input type="password" name="confirm_password" required></label><br>
 
@@ -104,7 +104,7 @@ $errors = [];
         <label>Rate per Hour: <input type="number" name="rate_per_hour" step="0.01" min="0" value="<?= htmlspecialchars($_POST['rate_per_hour'] ?? '') ?>"></label><br>
         <label>Rate per Session: <input type="number" name="rate_per_session" step="0.01" min="0" value="<?= htmlspecialchars($_POST['rate_per_session'] ?? '') ?>"></label><br>
 
-        <button type="submit">Complete Registration</button>
+        <button type="submit">COMPLETE REGISTRATION</button>
     </form>
 
     <script>

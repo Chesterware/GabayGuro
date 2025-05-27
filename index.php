@@ -33,7 +33,9 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
 <body>
     <header class="header">
         <div class="header-content">
-            <div class="logo"></div>
+            <div class="logo">
+                <img src="GabayGuroLogo.png" alt="Gabay Guro Logo">
+            </div>
             <h1 class="welcome-text">Welcome to GABAYGURO</h1>
         </div>
     </header>
