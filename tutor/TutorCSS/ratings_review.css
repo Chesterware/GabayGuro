@@ -26,10 +26,11 @@ body.sidebar-collapsed .tutor-rating {
 }
 
 .tutor-icon {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid #003153;
 }
 
 .tutor-name {
@@ -77,6 +78,7 @@ body.sidebar-collapsed .learner-review {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid #003153;
 }
 
 .learner-text-column {

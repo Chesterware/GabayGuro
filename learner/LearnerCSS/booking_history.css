@@ -1,15 +1,14 @@
-/* Base Styles */
 .booking-status-buttons {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 8px;
-    margin: 90px 10px 15px 10px;
+    margin: 110px 10px 15px 10px;
     padding: 0 5px;
     transition: margin-left 0.3s ease;
 }
 
 body.sidebar-collapsed .booking-status-buttons {
-    margin: 90px 10px 15px 10px;
+    margin: 110px 10px 15px 10px;
 }
 
 @media (min-width: 768px) {
@@ -111,7 +110,6 @@ body.sidebar-collapsed .booking-status-buttons {
     align-self: center;
 }
 
-/* Action Buttons */
 .action-btn-container {
     display: flex;
     justify-content: flex-end;
@@ -126,6 +124,31 @@ body.sidebar-collapsed .booking-status-buttons {
         min-width: 120px;
     }
 }
+
+.no-bookings {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin: 10px 10px 0 240px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    font-size: var(--font-lg);
+    color: #003153;
+    text-align: left;
+    transition: all ease 0.3s;
+}
+
+body.sidebar-collapsed .no-bookings {
+    margin: 10px 10px 15px 10px;
+}
+
+@media (max-width: 767px) {
+    .no-bookings {
+        margin: 10px 15px;
+        text-align: center;
+        font-size: 1rem;
+    }
+}
+
 
 .cancel-btn,
 .finish-btn,

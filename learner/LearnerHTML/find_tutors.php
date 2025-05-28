@@ -215,7 +215,7 @@ require_once '../LearnerPHP/auth_learner.php';
                 <div class="tutor-card-wrapper">
                     <div class="tutor-profile-column">
                         <div class="tutor-profile-icon">
-                            <i class="fas fa-user"></i>
+                            <img src="../../tutor-icon.png" alt="Tutor Icon" />
                         </div>
                         <div class="tutor-info">
                             <h3><?= htmlspecialchars($tutor['first_name']) . ' ' . htmlspecialchars($tutor['last_name']) ?></h3>

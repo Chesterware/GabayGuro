@@ -295,13 +295,20 @@ body.sidebar-collapsed .tutor-card-wrapper {
 .tutor-profile-icon {
     width: 80px;
     height: 80px;
-    font-size: 2.5rem;
-    background-color: #eee;
+    border: 2px solid #003153;
     border-radius: 50%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    background-color: #f0f4f8;
+}
+
+.tutor-profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .tutor-name-heading {

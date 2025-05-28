@@ -51,8 +51,9 @@ require_once '../TutorPHP/auth_tutor.php';
     
     <div class="tutor-rating">
         <div class="icon-column">
-            <img class="tutor-icon" src="tutor-icon.png" alt="Tutor Icon">
+            <img class="tutor-icon" src="<?= htmlspecialchars($profileImageSrc) ?>" alt="Tutor Profile Picture">
         </div>
+
         <div class="info-column">
             <p class="tutor-name"><?php echo htmlspecialchars($tutorData['full_name']); ?></p>
             <p class="rating"><span class="label">Rating:</span> <?php echo number_format($tutorData['average_rating'], 1); ?> / 5.0</p>
