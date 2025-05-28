@@ -34,6 +34,7 @@ body.sidebar-collapsed .booking-status-buttons {
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
+    text-decoration: none;
     text-overflow: ellipsis;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -46,7 +47,6 @@ body.sidebar-collapsed .booking-status-buttons {
     font-weight: bold;
 }
 
-/* Booking Entries */
 .booking-entry {
     background: white;
     padding: 12px;

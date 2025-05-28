@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $username = "root"; 
-$password = "appdev_Iskol4rx";
+$password = "";
 $database = "iskol4rx";
 
 $conn = new mysqli($host, $username, $password, $database);

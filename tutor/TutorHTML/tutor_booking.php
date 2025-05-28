@@ -97,7 +97,9 @@ require_once '../TutorPHP/auth_tutor.php';
                 </div>
             <?php endwhile; ?>
         <?php else : ?>
-            <p>No bookings found.</p>
+            <div class="no-bookings-box">
+                No bookings found.
+            </div>
         <?php endif; ?>
         </div>
 

@@ -57,6 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $otherCertificatesContent = file_get_contents($_FILES['other_certificates']['tmp_name'][0]);
     }
 
+    $profilePictureContent = null;
+    if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === UPLOAD_ERR_OK) {
+        $profilePictureContent = file_get_contents($_FILES['profile_photo']['tmp_name']);
+    } else {
+        $errors[] = "Profile picture upload failed or was not provided.";
+    }
+
     if (!is_array($selected_specializations)) {
         $errors[] = "Invalid specializations selected.";
     } else {
@@ -80,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             birthdate = ?, 
             educational_attainment = ?, 
             years_of_experience = ?, 
+            profile_picture = ?, 
             diploma = ?, 
             other_certificates = ?, 
             rate_per_hour = ?, 
@@ -99,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $null = null;
 
         $stmt->bind_param(
-            "sssssssbbddi",
+            "sssssssbbbddi",
             $password_hash,
             $first_name,
             $middle_initial,
@@ -109,14 +117,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $years_of_experience,
             $null,
             $null,
+            $null,
             $rate_per_hour,
             $rate_per_session,
             $tutor['tutor_id']
         );
 
-        $stmt->send_long_data(7, $diplomaContent);
+        $stmt->send_long_data(7, $profilePictureContent);
+        $stmt->send_long_data(8, $diplomaContent);
         if ($otherCertificatesContent !== null) {
-            $stmt->send_long_data(8, $otherCertificatesContent);
+            $stmt->send_long_data(9, $otherCertificatesContent);
         }
 
         if ($stmt->execute()) {

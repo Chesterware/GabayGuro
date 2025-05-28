@@ -97,7 +97,8 @@ $errors = [];
             }
             ?>
         </fieldset>
-
+        
+        <label>Upload Profile Photo (JPG/PNG): <input type="file" name="profile_photo" accept="image/jpeg,image/png" required></label><br>
         <label>Diploma (PDF/image): <input type="file" name="diploma" accept=".pdf,image/*" required></label><br>
         <label>Other Certificates (PDF/image): <input type="file" name="other_certificates[]" accept=".pdf,image/*" multiple></label><br>
 

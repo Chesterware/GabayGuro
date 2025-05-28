@@ -42,7 +42,12 @@ $errors = [];
         <label for="confirm_password">Confirm Password:</label>
         <input id="confirm_password" type="password" name="confirm_password" required>
       </div>
-      
+
+      <div class="form-group">
+        <label for="profile_photo">Upload Profile Photo:</label>
+        <input id="profile_photo" type="file" name="profile_photo" accept="image/*" required>
+      </div>
+
       <div class="form-group">
         <label for="first_name">First Name:</label>
         <input id="first_name" type="text" name="first_name" required value="<?= htmlspecialchars($_POST['first_name'] ?? '') ?>">

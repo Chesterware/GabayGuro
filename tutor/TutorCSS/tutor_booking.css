@@ -123,7 +123,32 @@ body.sidebar-collapsed .learner-booking-entry {
     color: white;
 }
 
-/* Mobile Responsiveness */
+.no-bookings-box {
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: left;
+    font-size: 16px;
+    color: #003153;
+    font-weight: bold;
+    width: 100%;
+    margin: 20px 10px 0 240px;
+    transition: all ease 0.3s;
+}
+
+body.sidebar-collapsed .no-bookings-box {
+    margin: 20px 10px 0 10px;
+}
+
+@media (max-width: 768px) {
+    .no-bookings-box {
+        margin: 20px 10px;
+        font-size: 14px;
+        padding: 15px;
+    }
+}
+
 @media (max-width: 1024px) {
     .booking-status-buttons {
         grid-template-columns: repeat(3, 1fr);

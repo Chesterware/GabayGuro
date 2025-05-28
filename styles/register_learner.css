@@ -134,6 +134,31 @@ button[type="submit"]:hover {
     margin-top: 15px;
 }
 
+input[type="file"] {
+    width: 100%;
+    padding: 15px 10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: var(--font-md);
+
+    background: var(--white);
+    cursor: pointer;
+
+}
+
+input[type="file"]:focus {
+    border-color: #002642;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,49,83,0.1);
+}
+
+@media (min-width: 768px) {
+    input[type="file"] {
+        padding: 18px 25px;
+        font-size: var(--font-lg);
+    }
+}
+
 @media (min-width: 768px) {
     .form-container {
         padding: 40px 50px;
