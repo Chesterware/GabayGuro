@@ -36,7 +36,7 @@ body.sidebar-collapsed .booking-status-buttons {
     align-items: center;
     background-color: #FFFFFF;
     padding: 15px;
-    margin: 20px 10px 0 240px;
+    margin: 1% 10px 10px 240px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -44,7 +44,7 @@ body.sidebar-collapsed .booking-status-buttons {
 }
 
 body.sidebar-collapsed .learner-booking-entry {
-    margin: 20px 10px 0 10px;
+    margin: 10px 10px 10px 10px;
 }
 
 .learner-col {
@@ -123,8 +123,8 @@ body.sidebar-collapsed .learner-booking-entry {
     color: white;
 }
 
-.no-bookings-box {
-    background-color: #FFFFFF;
+.no-booking p {
+    background-color: #FFFFFF; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 20px;
@@ -137,7 +137,7 @@ body.sidebar-collapsed .learner-booking-entry {
     transition: all ease 0.3s;
 }
 
-body.sidebar-collapsed .no-bookings-box {
+body.sidebar-collapsed .no-booking p {
     margin: 20px 10px 0 10px;
 }
 
