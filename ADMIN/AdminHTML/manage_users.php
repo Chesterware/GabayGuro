@@ -25,8 +25,7 @@ if (isset($_SESSION['admin_success'])) {
     <title>Manage Users</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#003153">
-    <link rel="icon" href="/GabayGuroLogo.png">
-    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
+    <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../AdminCSS/index.css" />
     <link rel="stylesheet" href="../AdminCSS/manage_users.css" />
@@ -146,7 +145,10 @@ if (isset($_SESSION['admin_success'])) {
                                         <button type="button" class="cancel-btn" id="cancel-btn-<?= $index ?>" onclick="cancelEdit(<?= $index ?>)" style="display:none;">CANCEL</button>
                                         <button type="submit" class="update-btn" id="update-btn-<?= $index ?>" style="display:none;">UPDATE</button>
                                         <button type="submit" class="delete-btn" id="delete-btn-<?= $index ?>" title="Delete Tutor" form="delete-form-<?= $index ?>">DELETE</button>
-                                                                    <button type="button" class="edit-btn" id="edit-btn-<?= $index ?>" onclick="enableEdit(<?= $index ?>)">EDIT</button>
+
+                                        <?php if ($tutor['status'] !== 'Verified'): ?>
+                                            <button type="button" class="edit-btn" id="edit-btn-<?= $index ?>" onclick="enableEdit(<?= $index ?>)">EDIT</button>
+                                        <?php endif; ?>
                                     </div>
                 
                                 </form>
