@@ -138,6 +138,10 @@ body.sidebar-collapsed .booking-status-buttons {
     align-items: center;
 }
 
+.modal.show {
+    display: flex;
+}
+
 .modal-content {
     background-color: white;
     padding: 20px;
