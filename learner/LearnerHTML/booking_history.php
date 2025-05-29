@@ -19,6 +19,383 @@ require_once '../LearnerPHP/auth_learner.php';
     <link rel="stylesheet" href="../LearnerCSS/booking_history.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<style>
+    .booking-status-buttons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin: 130px 10px 15px 10px;
+    padding: 0 5px;
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-collapsed .booking-status-buttons {
+    margin: 130px 10px 15px 10px;
+}
+
+@media (min-width: 768px) {
+    .booking-status-buttons {
+        grid-template-columns: repeat(6, 1fr);
+        margin: 100px 20px 20px 240px;
+        gap: 10px;
+    }
+
+    body.sidebar-collapsed .booking-status-buttons {
+        margin: 100px 20px 20px 20px;
+    }
+}
+
+.status-btn {
+    padding: 8px 5px;
+    font-size: 12px;
+    background-color: transparent;
+    color: #003153;
+    border: 2px solid #003153;
+    border-radius: 5px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.status-btn.status-selected,
+.status-btn:hover {
+    background-color: #003153;
+    color: white;
+    font-weight: bold;
+}
+
+.booking-row {
+    display: flex;
+    gap: 10px;
+    margin: 0 10px 10px 240px;
+    transition: all ease 0.3s;
+}
+
+body.sidebar-collapsed .booking-row {
+    margin: 0 10px 10px 10px;
+}
+
+.booking-entry {
+    flex: 0 1 50%;
+    max-width: 100%;
+    min-width: 300px;
+    border: 2px solid #003153;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.booking-info-container {
+    display: flex;
+    gap: 10px;
+}
+
+.booking-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.booking-col-left {
+    flex: 0 0 100px;
+}
+
+.tutor-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #003153;
+}
+
+.booking-col-labels {
+    flex: 0 0 80px;
+    color: #000000;
+}
+
+.booking-col-values {
+    flex: 1;
+    color: #003153;
+    font-weight: bold;
+}
+
+.booking-info-line {
+    margin-bottom: 6px;
+}
+
+.action-btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.action-btn-container button {
+    padding: 12px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #003153;
+    color: white;
+    width: 100%;
+}
+
+.cancel-btn, .finish-btn, .write-review-btn {
+    background-color: #003153;
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1102;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.modal-content h3 {
+    text-align: center;
+    color: #003153;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.stars i {
+    cursor: pointer;
+    margin: 0 5px;
+    color: transparent;
+    -webkit-text-stroke: 2px #003153;
+}
+
+.stars i.selected {
+    color: #003153;
+    -webkit-text-stroke: 0;
+}
+
+textarea {
+    width: 95%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #003153;
+    border-radius: 5px;
+    margin: 10px 0;
+    resize: vertical;
+    font-size: 14px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.modal-button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.cancel-button {
+    background-color: white;
+    color: #003153;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.cancel-button:hover,
+.cancel-button:focus {
+    box-shadow: none;
+    border: none;
+    outline: none;
+    border: 2px solid #003153;
+}
+
+.confirm-button {
+    background-color: #003153;
+    color: white;
+    border: none;
+}
+
+.no-bookings {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    margin: 20px 10px 0 10px;
+    padding: 15px;
+    text-align: left;
+    color: #003153;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+@media (max-width: 767px) {
+    .booking-status-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        margin: 120px 10px 15px 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .booking-row {
+        flex-direction: column;
+    }
+
+    .booking-entry {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: unset;
+    }
+
+    .booking-info-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .booking-col-left {
+        flex: 0 0 auto;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .booking-col-labels,
+    .booking-col-values {
+        flex: none;
+        text-align: left;
+        font-weight: normal;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .booking-info-line {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .booking-col-labels {
+        font-weight: bold;
+        min-width: 90px;
+    }
+
+    .booking-col-values {
+        flex: 1;
+        font-weight: bold;
+        color: #003153;
+    }
+
+    .action-btn-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .action-btn-container button {
+        width: 100%;
+    }
+
+    .tutor-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    textarea {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .booking-status-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .status-btn {
+        font-size: 11px;
+        padding: 5px 3px;
+    }
+
+    .tutor-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .booking-info-line {
+        font-size: 13px;
+        flex-direction: column;
+    }
+    .booking-info-label {
+        min-width: 70px;
+        margin-bottom: 2px;
+    }
+    .status-btn {
+        font-size: 11px;
+        padding: 6px 3px;
+    }
+    .action-btn-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tutor-image {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (min-width: 992px) {
+    .booking-info-line {
+        display: flex;
+    }
+}
+</style>
 <body class="sidebar-collapsed">
     <div class="header-title">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
