@@ -109,6 +109,7 @@ body.sidebar-collapsed .learner-review {
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px 10px 0 240px;
+    transition: all ease 0.3s;
 }
 
 body.sidebar-collapsed .no-reviews {
