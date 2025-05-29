@@ -68,7 +68,7 @@ require_once '../LearnerPHP/auth_learner.php';
 
     <div id="reviewModal" class="modal">
         <div class="modal-content">
-            <h3>Write a Review</h3>
+            <h3>WRTIE A REVIEW</h3>
             <div class="stars">
                 <i class="fas fa-star" onclick="selectStar(1)"></i>
                 <i class="fas fa-star" onclick="selectStar(2)"></i>
@@ -85,54 +85,72 @@ require_once '../LearnerPHP/auth_learner.php';
     </div>
 
     <?php if ($result->num_rows > 0) : ?>
-        <?php while ($row = $result->fetch_assoc()) : ?>
+        <?php
+        $counter = 0;
+        while ($row = $result->fetch_assoc()) :
+            if ($counter % 2 == 0) {
+                echo '<div class="booking-row">';
+            }
+        ?>
             <div class="booking-entry" data-booking-id="<?php echo $row['booking_id']; ?>" data-status="<?php echo strtolower($row['status']); ?>">
-                <div class="booking-col booking-col-left">
-                    <img src="tutor.jpg" alt="Tutor Image" class="tutor-image">
-                </div>
+    
+    <div class="booking-info-container">
+        <div class="booking-col booking-col-left">
+            <img src="../../tutor-icon.png" alt="Tutor Image" class="tutor-image">
+        </div>
 
-                <div class="booking-col booking-col-labels">
-                    <div class="booking-info-line">Tutor:</div>
-                    <div class="booking-info-line">Subject:</div>
-                    <div class="booking-info-line">Time:</div>
-                    <div class="booking-info-line">Date:</div>
-                    <div class="booking-info-line">Location:</div>
-                    <div class="booking-info-line">Offer:</div>
-                </div>
+        <div class="booking-col booking-col-labels">
+            <div class="booking-info-line">Tutor:</div>
+            <div class="booking-info-line">Subject:</div>
+            <div class="booking-info-line">Time:</div>
+            <div class="booking-info-line">Date:</div>
+            <div class="booking-info-line">Location:</div>
+            <div class="booking-info-line">Offer:</div>
+        </div>
 
-                <div class="booking-col booking-col-values">
-                    <div class="booking-info-line"><?php echo htmlspecialchars($row['tutor_name']); ?></div>
-                    <div class="booking-info-line"><?php echo htmlspecialchars($row['subject']); ?></div>
-                    <div class="booking-info-line"><?php echo date("h:i A", strtotime($row['start_time'])) . " - " . date("h:i A", strtotime($row['end_time'])); ?></div>
-                    <div class="booking-info-line"><?php echo date("F j, Y", strtotime($row['date'])); ?></div>
-                    <div class="booking-info-line"><?php echo htmlspecialchars($row['address']); ?></div>
-                    <div class="booking-info-line">P <?php echo htmlspecialchars($row['offer']); ?></div>
-                </div>
+        <div class="booking-col booking-col-values">
+            <div class="booking-info-line"><?php echo htmlspecialchars($row['tutor_name']); ?></div>
+            <div class="booking-info-line"><?php echo htmlspecialchars($row['subject']); ?></div>
+            <div class="booking-info-line"><?php echo date("h:i A", strtotime($row['start_time'])) . " - " . date("h:i A", strtotime($row['end_time'])); ?></div>
+            <div class="booking-info-line"><?php echo date("F j, Y", strtotime($row['date'])); ?></div>
+            <div class="booking-info-line"><?php echo htmlspecialchars($row['address']); ?></div>
+            <div class="booking-info-line">P <?php echo htmlspecialchars($row['offer']); ?></div>
+        </div>
+    </div>
 
-                <div class="action-btn-container">
-                    <?php if ($row['status'] === 'pending'): ?>
-                        <button class="cancel-btn" id="cancelBtn<?php echo $row['booking_id']; ?>">CANCEL</button>
-                    <?php elseif ($row['status'] === 'ongoing'): ?>
-                        <button class="finish-btn" id="finishBtn<?php echo $row['booking_id']; ?>">FINISH</button>
-                    <?php elseif ($row['status'] === 'for review'): ?>
-                        <button class="write-review-btn" id="writeReviewBtn<?php echo $row['booking_id']; ?>">WRITE REVIEW</button>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endwhile; ?>
-
-        <?php else : ?>
-            <p class="no-bookings">No bookings found.</p>
+    <div class="action-btn-container">
+        <?php if ($row['status'] === 'pending'): ?>
+            <button class="cancel-btn" id="cancelBtn<?php echo $row['booking_id']; ?>">CANCEL</button>
+        <?php elseif ($row['status'] === 'ongoing'): ?>
+            <button class="finish-btn" id="finishBtn<?php echo $row['booking_id']; ?>">FINISH</button>
+        <?php elseif ($row['status'] === 'for review'): ?>
+            <button class="write-review-btn" id="writeReviewBtn<?php echo $row['booking_id']; ?>">WRITE REVIEW</button>
         <?php endif; ?>
+    </div>
+</div>
+
+        <?php
+            $counter++;
+            if ($counter % 2 == 0) {
+                echo '</div>';
+            }
+        endwhile;
+        if ($counter % 2 != 0) {
+            echo '</div>';
+        }
+        ?>
+    <?php else : ?>
+        <p class="no-bookings">No bookings found.</p>
+    <?php endif; ?>
 
     <script src="../LearnerJS/booking_history.js"></script>
     <script src="../../time-date-sidebar.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(() => console.log('Service Worker registered!'))
-            .catch(err => console.error('Service Worker registration failed:', err));
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(() => console.log('Service Worker registered!'))
+                .catch(err => console.error('Service Worker registration failed:', err));
         }
     </script> 
 </body>

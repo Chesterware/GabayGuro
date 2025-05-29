@@ -15,6 +15,242 @@ require_once '../TutorPHP/auth_tutor.php';
     <link rel="stylesheet" href="../TutorCSS/index.css">
     <link rel="stylesheet" href="../TutorCSS/tutor_booking.css">
 </head>
+<style>
+    .booking-status-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 100px 10px 0 240px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+body.sidebar-collapsed .booking-status-buttons {
+    margin: 100px 10px 0 10px;
+}
+
+.status-btn {
+    padding: 12px 10px;
+    background-color: transparent;
+    color: #003153;
+    border: 2px solid #003153;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.status-btn:hover, .status-btn.status-selected {
+    background-color: #003153;
+    color: white;
+    font-weight: bold;
+}
+
+.learner-booking-entry {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 15px;
+    margin: 20px 10px 0 240px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+body.sidebar-collapsed .learner-booking-entry {
+    margin: 20px 10px 0 10px;
+}
+
+.learner-col {
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.learner-col-left {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.learner-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #003153;
+}
+
+.learner-col-labels {
+    width: 15%;
+    color: #8B8B8B;
+    font-size: 0.85rem;
+}
+
+.learner-col-values {
+    width: 45%;
+    color: #003153;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.learner-info-line {
+    margin: 6px 0;
+    line-height: 1.3;
+}
+
+.learner-action-buttons {
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.accept-btn, .decline-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100px;
+}
+
+.accept-btn {
+    background-color: #003153;
+}
+
+.accept-btn:hover {
+    background-color: #002440;
+}
+
+.decline-btn {
+    border: 2px solid #003153;
+    background-color: transparent;
+    color: #003153;
+}
+
+.decline-btn:hover {
+    background-color: #002440;
+    color: white;
+}
+
+.no-bookings-box {
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: left;
+    font-size: 16px;
+    color: #003153;
+    font-weight: bold;
+    width: 100%;
+    margin: 20px 10px 0 240px;
+    transition: all ease 0.3s;
+}
+
+body.sidebar-collapsed .no-bookings-box {
+    margin: 20px 10px 0 10px;
+}
+
+@media (max-width: 768px) {
+    .no-bookings-box {
+        margin: 20px 10px;
+        font-size: 14px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .booking-status-buttons {
+        grid-template-columns: repeat(3, 1fr);
+        margin: 90px 10px 0 10px;
+        position: sticky;
+        top: 70px;
+        background: #E6ECF1;
+        padding: 10px 0;
+        z-index: 700;
+    }
+    
+    .learner-booking-entry {
+        margin: 15px 10px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .learner-col-left,
+    .learner-col-labels,
+    .learner-col-values,
+    .learner-action-buttons {
+        width: 100%;
+    }
+    
+    .learner-col-labels {
+        margin-top: 10px;
+        text-align: center;
+    }
+    
+    .learner-action-buttons {
+        justify-content: center;
+        margin-top: 15px;
+    }
+    
+    .learner-image {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .accept-btn, .decline-btn {
+        width: 120px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-status-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        top: 60px;
+    }
+    
+    .status-btn {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .booking-status-buttons {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        top: 60px;
+    }
+    
+    .learner-booking-entry {
+        padding: 12px;
+    }
+    
+    .learner-col-labels,
+    .learner-col-values {
+        font-size: 0.8rem;
+    }
+    
+    .accept-btn, .decline-btn {
+        width: 100%;
+        font-size: 0.8rem;
+    }
+    
+    .learner-image {
+        width: 70px;
+        height: 70px;
+    }
+}
+</style>
 <body class="sidebar-collapsed">
     <div class="header-title">  
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
@@ -67,7 +303,7 @@ require_once '../TutorPHP/auth_tutor.php';
                     data-status="<?php echo strtolower($row['status']); ?>">
 
                     <div class="learner-col learner-col-left">
-                        <img src="learner.jpg" alt="Learner Photo" class="learner-image">
+                        <img src="../../tutor-icon.png" alt="Learner Photo" class="learner-image">
                     </div>
 
                     <div class="learner-col learner-col-labels">
@@ -97,9 +333,7 @@ require_once '../TutorPHP/auth_tutor.php';
                 </div>
             <?php endwhile; ?>
         <?php else : ?>
-            <div class="no-bookings-box">
-                No bookings found.
-            </div>
+            <p>No bookings found.</p>
         <?php endif; ?>
         </div>
 

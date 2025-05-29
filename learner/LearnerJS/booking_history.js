@@ -52,11 +52,11 @@ function openReviewModal(bookingId) {
     document.getElementById('comment').value = '';
     selectedStars = 0;
     document.querySelectorAll('.stars i').forEach(star => star.classList.remove('selected'));
-    document.getElementById('reviewModal').style.display = 'flex';
+document.getElementById('reviewModal').classList.add('show');
 }
 
 function closeReviewModal() {
-    document.getElementById('reviewModal').style.display = 'none';
+document.getElementById('reviewModal').classList.remove('show');
 }
 
 function selectStar(starNumber) {
