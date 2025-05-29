@@ -1,4 +1,4 @@
-.status-users-container {
+    .status-users-container {
     width: calc(100% - 240px);
     margin: 120px 10px 0 240px;
     transition: all ease 0.3s;
@@ -205,4 +205,4 @@ body.sidebar-collapsed .chart-box {
     .chart-header h3 {
         font-size: 1.2rem !important;
     }
-    }
+}
