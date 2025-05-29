@@ -12,8 +12,7 @@ require_once '../AdminPHP/auth_admin.php';
     <title>Dashboard</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#003153">
-    <link rel="icon" href="/GabayGuroLogo.png">
-    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
+    <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
     <link rel="stylesheet" href="../AdminCSS/index.css" />
     <link rel="stylesheet" href="../AdminCSS/admin_dashboard.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
@@ -88,6 +87,9 @@ require_once '../AdminPHP/auth_admin.php';
         <div class="chart-container">
             <div class="chart-header">
                 <h3>Learners - Tutors Distribution</h3>
+                <div class="filter-form" style="visibility: hidden;">
+                    <select><option>Placeholder</option></select>
+                </div>
             </div>
             <canvas id="userPieChart"></canvas>
         </div>
@@ -130,7 +132,7 @@ const subjectChart = new Chart(ctx, {
                 left: 20,
                 right: 20,
                 top: 10,
-                bottom: 80
+                bottom: 20
             }
         },
         scales: {
@@ -140,7 +142,7 @@ const subjectChart = new Chart(ctx, {
                     precision: 0,
                     color: '#003153',
                     font: {
-                        size: 14,
+                        size: 12,
                         weight: 'bold'
                     },
                     padding: 8
@@ -155,7 +157,8 @@ const subjectChart = new Chart(ctx, {
                 ticks: {
                     color: '#003153',
                     font: {
-                        size: 14
+                        size: 14,
+                        style: 'normal'
                     }
                 },
                 grid: {
@@ -205,8 +208,8 @@ const userPieChart = new Chart(pieCtx, {
         maintainAspectRatio: false,
         layout: {
             padding: {
-                top: 10,
-                bottom: 100
+                top: 30,
+                bottom: 40
             }
         },
         plugins: {
@@ -215,7 +218,7 @@ const userPieChart = new Chart(pieCtx, {
                 labels: {
                     color: '#003153',
                     font: {
-                        size: 16,
+                        size: 24,
                         weight: 'bold'
                     }
                 }

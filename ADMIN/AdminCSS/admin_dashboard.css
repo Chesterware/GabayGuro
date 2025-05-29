@@ -1,6 +1,6 @@
 .status-users-container {
     width: calc(100% - 240px);
-    margin: 120px 10px 10px 240px;
+    margin: 120px 10px 0 240px;
     transition: all ease 0.3s;
     color: #003153;
     font-family: Arial, Helvetica, sans-serif;
@@ -8,7 +8,7 @@
 
 body.sidebar-collapsed .status-users-container {
     width: calc(100% - 20px);
-    margin: 120px 10px 10px 10px;
+    margin: 120px 10px 0 10px;
 }
 
 .row {
@@ -18,13 +18,18 @@ body.sidebar-collapsed .status-users-container {
 
 .counts-row {
     grid-template-columns: repeat(8, 1fr);
+
+}
+
+.counts-row:hover {
+    color: #003153;
 }
 
 .col {
     background-color: #FFFFFF;
     border: 2px solid #003153;
     border-radius: 8px;
-    padding: 14px 8px;
+    padding: 10px 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,7 +43,6 @@ body.sidebar-collapsed .status-users-container {
 }
 
 .col:hover {
-    background-color: #E6ECF1;
     transform: scale(1.02);
 }
 
@@ -60,18 +64,18 @@ body.sidebar-collapsed .status-users-container {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    padding: 20px;
+    padding: 17px;
     margin: 10px 10px 10px 240px;
     transition: all ease 0.3s;
 }
 
 body.sidebar-collapsed .chart-box {
-    margin: 10px;
+    margin: 10px 10px 10px 10px;
 }
 
 .chart-container {
     position: relative;
-    height: 500px;
+    height: 380px;
     width: 100%;
     background-color: #FFFFFF;
     padding: 20px;
@@ -85,13 +89,13 @@ body.sidebar-collapsed .chart-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
     gap: 10px;
 }
 
 .chart-header h3 {
-    font-size: 26px;
+    font-size: 20px;
     font-weight: bold;
     color: #003153;
     margin: 0;
@@ -130,74 +134,75 @@ body.sidebar-collapsed .chart-box {
 
 #subjectChart,
 #userPieChart {
-    width: 100% !important;
-    height: 100% !important;
+    width: 90% !important;
+    height: 90% !important;
     border-radius: 12px;
+    margin: auto;
     display: block;
 }
 
 @media (max-width: 768px) {
-            .header-title {
-                padding: 15px !important;
-            }
-            
-            .page-label {
-                font-size: 1.5rem !important;
-                margin-left: 15px !important;
-            }
-            
-            .datetime {
-                font-size: 1rem !important;
-            }
-            
-            .status-users-container {
-                margin-top: 90px !important;
-                margin-left: 15px !important;
-                margin-right: 15px !important;
-                width: calc(100% - 30px) !important;
-            }
-            
-            .counts-row {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
-            
-            .col.title {
-                grid-column: span 2;
-                font-size: 24px !important;
-            }
-            
-            .chart-box {
-                flex-direction: column;
-                padding: 15px !important;
-                margin-left: 15px !important;
-                margin-right: 15px !important;
-            }
-            
-            .chart-container {
-                height: 350px;
-            }
-            
-            .chart-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .filter-form {
-                width: 100%;
-            }
-            
-            .filter-form select {
-                width: 100% !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .col strong {
-                font-size: 18px !important;
-            }
-            
-            .chart-header h3 {
-                font-size: 1.2rem !important;
-            }
-        }
+    .header-title {
+        padding: 15px !important;
+    }
+
+    .page-label {
+        font-size: 1.5rem !important;
+        margin-left: 15px !important;
+    }
+
+    .datetime {
+        font-size: 1rem !important;
+    }
+
+    .status-users-container {
+        margin-top: 90px !important;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+        width: calc(100% - 30px) !important;
+    }
+
+    .counts-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .col.title {
+        grid-column: span 2;
+        font-size: 24px !important;
+    }
+
+    .chart-box {
+        flex-direction: column;
+        padding: 15px !important;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+    }
+
+    .chart-container {
+        height: 350px;
+    }
+
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .filter-form {
+        width: 100%;
+    }
+
+    .filter-form select {
+        width: 100% !important;
+    }
+    }
+
+@media (max-width: 480px) {
+    .col strong {
+        font-size: 18px !important;
+    }
+
+    .chart-header h3 {
+        font-size: 1.2rem !important;
+    }
+    }
