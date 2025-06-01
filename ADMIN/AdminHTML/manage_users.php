@@ -1,8 +1,10 @@
 <?php
 require_once '../AdminPHP/admin_name.php'; 
 require_once '../AdminPHP/iskol4rx_users.php';
+require_once '../AdminPHP/deleted_users.php';
 require_once '../AdminPHP/auth_admin.php';
 require_once '../AdminPHP/add_admin.php';
+
 
 if (isset($_SESSION['admin_errors'])) {
     foreach ($_SESSION['admin_errors'] as $error) {
@@ -96,7 +98,6 @@ if (isset($_SESSION['admin_success'])) {
                                         echo $date->format('m-d-Y'); 
                                     ?>
                                 </strong></p>
-
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -144,20 +145,18 @@ if (isset($_SESSION['admin_success'])) {
                                     <div class="button-group">
                                         <button type="button" class="cancel-btn" id="cancel-btn-<?= $index ?>" onclick="cancelEdit(<?= $index ?>)" style="display:none;">CANCEL</button>
                                         <button type="submit" class="update-btn" id="update-btn-<?= $index ?>" style="display:none;">UPDATE</button>
-                                        <button type="submit" class="delete-btn" id="delete-btn-<?= $index ?>" title="Delete Tutor" form="delete-form-<?= $index ?>">DELETE</button>
+                                        <button type="button" class="delete-btn" id="delete-btn-<?= $index ?>" onclick="submitDeleteForm('tutor-<?= $tutor['tutor_id'] ?>', 'tutor')">ARCHIVE</button>
 
                                         <?php if ($tutor['status'] !== 'Verified'): ?>
                                             <button type="button" class="edit-btn" id="edit-btn-<?= $index ?>" onclick="enableEdit(<?= $index ?>)">EDIT</button>
                                         <?php endif; ?>
                                     </div>
-                
                                 </form>
 
-                                <form id="delete-form-<?= $index ?>" method="POST" action="../AdminPHP/delete_user.php" onsubmit="return confirm('Are you sure you want to delete this tutor?');" style="display:none;">
+                                <form id="delete-form-tutor-<?= $tutor['tutor_id'] ?>" method="POST" action="../AdminPHP/soft_delete_user.php" style="display:none;">
                                     <input type="hidden" name="user_type" value="tutor">
                                     <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($tutor['tutor_id']); ?>">
                                 </form>
-
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -191,16 +190,89 @@ if (isset($_SESSION['admin_success'])) {
                                     ?>
                                 </strong></p>
                                 
-                                <form method="POST" action="../AdminPHP/delete_user.php" onsubmit="return confirm('Are you sure you want to delete this learner?');" style="display:inline;">
+                                <button type="button" class="delete-btn" onclick="submitDeleteForm('learner-<?= $learner['learner_id'] ?>', 'learner')">ARCHIVE</button>
+                                
+                                <form id="delete-form-learner-<?= $learner['learner_id'] ?>" method="POST" action="../AdminPHP/soft_delete_user.php" style="display:none;">
                                     <input type="hidden" name="user_type" value="learner">
                                     <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($learner['learner_id']); ?>">
-                                    <button type="submit" class="delete-btn" title="Delete Tutor">DELETE</button>
                                 </form>
-
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>No learners found.</p>
+                    <?php endif; ?>
+                </div>
+            </section>
+
+            <section class="user-column">
+                <div class="column-header">
+                    <h2>ARCHIVED (<?php echo $totalDeletedUsers ?? 0; ?>)</h2>
+                </div>
+                <div class="scrollable-list">
+                    <?php if (!empty($deletedTutors)): ?>
+                        <h3 class="section-subheading">Tutors</h3>
+                        <?php foreach ($deletedTutors as $tutor): ?>
+                            <div class="user-card">
+                                <h3>
+                                    <?php 
+                                        echo htmlspecialchars(
+                                            $tutor['first_name'] . ' ' . 
+                                            ($tutor['middle_initial'] ? $tutor['middle_initial'] . '. ' : '') . 
+                                            $tutor['last_name']
+                                        );
+                                    ?>
+                                </h3>
+                                <p><span class="label">Tutor ID:</span> <strong><?php echo htmlspecialchars($tutor['tutor_id']); ?></strong></p>
+                                <p><span class="label">Archived:</span> <strong>
+                                    <?php 
+                                        $date = new DateTime($tutor['updated_at']);
+                                        echo $date->format('m-d-Y'); 
+                                    ?>
+                                </strong></p>
+                                
+                                <button type="button" class="restore-btn" onclick="submitRestoreForm('tutor-<?= $tutor['tutor_id'] ?>', 'tutor')">RESTORE</button>
+                                
+                                <form id="restore-form-tutor-<?= $tutor['tutor_id'] ?>" method="POST" action="../AdminPHP/restore_users.php" style="display:none;">
+                                    <input type="hidden" name="user_type" value="tutor">
+                                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($tutor['tutor_id']); ?>">
+                                </form>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
+                    <?php if (!empty($deletedLearners)): ?>
+                        <h3 class="section-subheading">Learners</h3>
+                        <?php foreach ($deletedLearners as $learner): ?>
+                            <div class="user-card">
+                                <h3>
+                                    <?php 
+                                        echo htmlspecialchars(
+                                            $learner['first_name'] . ' ' . 
+                                            ($learner['middle_initial'] ? $learner['middle_initial'] . '. ' : '') . 
+                                            $learner['last_name']
+                                        );
+                                    ?>
+                                </h3>
+                                <p><span class="label">Learner ID:</span> <strong><?php echo htmlspecialchars($learner['learner_id']); ?></strong></p>
+                                <p><span class="label">Archived:</span> <strong>
+                                    <?php 
+                                        $date = new DateTime($learner['updated_at']);
+                                        echo $date->format('m-d-Y'); 
+                                    ?>
+                                </strong></p>
+                                
+                                <button type="button" class="restore-btn" onclick="submitRestoreForm('learner-<?= $learner['learner_id'] ?>', 'learner')">RESTORE</button>
+                                
+                                <form id="restore-form-learner-<?= $learner['learner_id'] ?>" method="POST" action="../AdminPHP/restore_users.php" style="display:none;">
+                                    <input type="hidden" name="user_type" value="learner">
+                                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($learner['learner_id']); ?>">
+                                </form>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
+                    <?php if (empty($deletedTutors) && empty($deletedLearners)): ?>
+                        <p>No archived users found.</p>
                     <?php endif; ?>
                 </div>
             </section>

@@ -1,15 +1,15 @@
 main.content-container {
-    margin-left: 230px;
+    margin: 100px 0 0 240px;
     transition: margin-left 0.3s ease;
     padding: 20px 20px 20px 0;
     margin-top: 110px;
-    box-sizing: border-box;
+    box-sizing: border-box; 
     color: #003153;
     font-family: Arial, sans-serif;
 }
 
 body.sidebar-collapsed main.content-container {
-    margin-left: 20px;
+    margin: 110px 0 0 20px;
 }
 
 .user-columns {
@@ -20,7 +20,7 @@ body.sidebar-collapsed main.content-container {
 
 .user-column {
     flex: 1 1 0;
-    max-width: 33.33%;
+    max-width: 25%;
     background: #FFFFFF;
     border: 2px solid #005F8F;
     border-radius: 8px;
@@ -89,18 +89,17 @@ body.sidebar-collapsed main.content-container {
 
 .user-card .label {
     display: inline-block;
-    width: 100px;
+    width: 80px;
     color: #444;
     font-weight: 500;
 }
 
 .user-card p strong {
-    color: #005F8F;
+    color: #003153;
 }
 
-/* Buttons */
-.edit-btn, .delete-btn, .update-btn, .cancel-btn {
-    width: 140px;
+.edit-btn, .delete-btn, .update-btn, .cancel-btn, .restore-btn {
+    width: 90px;
     padding: 8px 12px;
     font-size: 0.9rem;
     border-radius: 6px;
@@ -110,15 +109,14 @@ body.sidebar-collapsed main.content-container {
     color: white;
     display: inline-block;
     text-align: center;
-    margin-right: 10px;
     box-shadow: 0 1px 3px rgba(0,49,83,0.1);
 }
 
-.edit-btn, .update-btn {
+.edit-btn, .update-btn, .restore-btn {
     background-color: #003153;
 }
 
-.edit-btn:hover, .update-btn:hover {
+.edit-btn:hover, .update-btn:hover, .restore-btn:hover {
     background-color: #001D3D;
 }
 
@@ -134,7 +132,6 @@ body.sidebar-collapsed main.content-container {
     background-color: #E6ECF1;
 }
 
-/* Dropdown Styling */
 select:disabled {
     appearance: none;
     -webkit-appearance: none;
@@ -239,12 +236,43 @@ select:not(:disabled):focus {
     background-color: #001D3D;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
+.restore-btn {
+    background-color: #003153;
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+.restore-btn:hover {
+    background-color: #001D3D;
+}
+
+.section-subheading {
+    font-size: 1rem;
+    color: #003153;
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+@media (max-width: 1280px) {
     .user-columns {
         flex-wrap: wrap;
     }
 
+    .user-column {
+        max-width: 48%;
+        flex: 1 1 48%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 1024px) {
     .user-column {
         max-width: 100%;
         height: auto;
@@ -271,89 +299,89 @@ select:not(:disabled):focus {
     }
 }
 
-        @media (max-width: 768px) {
-            .header-title {
-                padding: 15px !important;
-            }
-            
-            .page-label {
-                font-size: 1.5rem !important;
-                margin-left: 15px !important;
-            }
-            
-            .datetime {
-                font-size: 1rem !important;
-            }
-            
-            main.content-container {
-                margin-left: 15px !important;
-                margin-right: 15px !important;
-                padding: 15px 15px 15px 0 !important;
-                margin-top: 90px !important;
-            }
-            
-            .user-columns {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .user-column {
-                max-width: 100% !important;
-                height: auto;
-                margin-bottom: 20px;
-            }
-            
-            .user-card {
-                padding: 12px;
-            }
-            
-            .user-card .label {
-                width: 80px;
-                font-size: 0.9rem;
-            }
-            
-            .button-group {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .edit-btn, .delete-btn, .update-btn, .cancel-btn {
-                width: 100% !important;
-                margin-right: 0 !important;
-            }
-            
-            .modal-content {
-                width: 90% !important;
-                margin: 20% auto !important;
-                padding: 15px !important;
-            }
-            
-            .modal h3 {
-                font-size: 1.1rem !important;
-            }
-            
-            .modal-content form input {
-                padding: 8px !important;
-                font-size: 0.9rem !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .user-card h3 {
-                font-size: 0.95rem !important;
-            }
-            
-            .user-card p {
-                font-size: 0.85rem !important;
-            }
-            
-            select:not(:disabled) {
-                font-size: 0.9rem !important;
-                padding: 6px 10px !important;
-            }
-            
-            .column-header h2 {
-                font-size: 1rem !important;
-            }
-        }
+@media (max-width: 768px) {
+    .header-title {
+        padding: 15px !important;
+    }
+    
+    .page-label {
+        font-size: 1.5rem !important;
+        margin-left: 15px !important;
+    }
+    
+    .datetime {
+        font-size: 1rem !important;
+    }
+    
+    main.content-container {
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+        padding: 15px 15px 15px 0 !important;
+        margin-top: 90px !important;
+    }
+    
+    .user-columns {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .user-column {
+        max-width: 100% !important;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    
+    .user-card {
+        padding: 12px;
+    }
+    
+    .user-card .label {
+        width: 80px;
+        font-size: 0.9rem;
+    }
+    
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .edit-btn, .delete-btn, .update-btn, .cancel-btn {
+        width: 100% !important;
+        margin-right: 0 !important;
+    }
+    
+    .modal-content {
+        width: 90% !important;
+        margin: 20% auto !important;
+        padding: 15px !important;
+    }
+    
+    .modal h3 {
+        font-size: 1.1rem !important;
+    }
+    
+    .modal-content form input {
+        padding: 8px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-card h3 {
+        font-size: 0.95rem !important;
+    }
+    
+    .user-card p {
+        font-size: 0.85rem !important;
+    }
+    
+    select:not(:disabled) {
+        font-size: 0.9rem !important;
+        padding: 6px 10px !important;
+    }
+    
+    .column-header h2 {
+        font-size: 1rem !important;
+    }
+}

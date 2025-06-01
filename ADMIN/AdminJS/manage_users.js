@@ -36,6 +36,18 @@ function cancelEdit(index) {
     deleteBtn.style.display = 'inline-block';
 }
 
+function submitDeleteForm(index, userType) {
+    if (confirm(`Are you sure you want to archive this ${userType}?`)) {
+        document.getElementById(`delete-form-${index}`).submit();
+    }
+}
+
+function submitRestoreForm(index, userType) {
+    if (confirm(`Are you sure you want to restore this ${userType}?`)) {
+        document.getElementById(`restore-form-${index}`).submit();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('select[id^="status-"]').forEach(select => {
         select.setAttribute('data-original', select.value);
@@ -46,12 +58,16 @@ const modal = document.getElementById("adminModal");
 const btn = document.querySelector(".add-btn");
 const close = document.querySelector(".modal .close");
 
-btn.onclick = function() {
-    modal.style.display = "block";
+if (btn) {
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
 }
 
-close.onclick = function() {
-    modal.style.display = "none";
+if (close) {
+    close.onclick = function() {
+        modal.style.display = "none";
+    }
 }
 
 window.onclick = function(event) {
@@ -60,24 +76,26 @@ window.onclick = function(event) {
     }
 }
 
-document.getElementById('adminForm').addEventListener('submit', function(e) {
-    const emailInput = this.email.value.trim().toLowerCase();
-    const password = this.password.value;
-    const confirmPassword = this.confirm_password.value;
+if (document.getElementById('adminForm')) {
+    document.getElementById('adminForm').addEventListener('submit', function(e) {
+        const emailInput = this.email.value.trim().toLowerCase();
+        const password = this.password.value;
+        const confirmPassword = this.confirm_password.value;
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
-    if (!passwordRegex.test(password)) {
-        alert('Password must be at least 8 characters and include at least 1 uppercase letter, 1 lowercase letter, and 1 number.');
-        e.preventDefault();
-        return;
-    }
+        if (!passwordRegex.test(password)) {
+            alert('Password must be at least 8 characters and include at least 1 uppercase letter, 1 lowercase letter, and 1 number.');
+            e.preventDefault();
+            return;
+        }
 
-    if (password !== confirmPassword) {
-        alert('Passwords do not match.');
-        e.preventDefault();
-        return;
-    }
+        if (password !== confirmPassword) {
+            alert('Passwords do not match.');
+            e.preventDefault();
+            return;
+        }
 
-    this.email.value = emailInput;
-});
+        this.email.value = emailInput;
+    });
+}
