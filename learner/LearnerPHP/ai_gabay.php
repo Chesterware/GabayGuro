@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['apply_filters'])) {
                 WHERE ts1.tutor_id = t.tutor_id
             ) AS specialization_names
         FROM tutor t
-        WHERE 1=1
+        WHERE t.is_deleted = 0
     ";
 
     if (!empty($education)) {

@@ -16,7 +16,13 @@ foreach ($user_types as $user_type) {
     $table = $user_type;
     $id_field = $user_type . '_id';
     
-    $stmt = $conn->prepare("SELECT * FROM $table WHERE email = ?");
+    // Only select non-deleted accounts for tutor and learner
+    if ($user_type == 'tutor' || $user_type == 'learner') {
+        $stmt = $conn->prepare("SELECT * FROM $table WHERE email = ? AND (is_deleted = 0 OR is_deleted IS NULL)");
+    } else {
+        $stmt = $conn->prepare("SELECT * FROM $table WHERE email = ?");
+    }
+    
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -25,6 +31,13 @@ foreach ($user_types as $user_type) {
         $user = $result->fetch_assoc();
         
         if (password_verify($password, $user['password'])) {
+            // Check if account is soft-deleted (additional safety check)
+            if (($user_type == 'tutor' || $user_type == 'learner') && 
+                isset($user['is_deleted']) && $user['is_deleted'] == 1) {
+                header("Location: /iskol4rx/index.php?error=account_deactivated");
+                exit();
+            }
+            
             session_regenerate_id(true);
             
             $_SESSION[$id_field] = $user[$id_field];
@@ -42,9 +55,25 @@ foreach ($user_types as $user_type) {
             }
 
             exit();
+        } else {
+            header("Location: /iskol4rx/index.php?error=invalid");
+            exit();
         }
     }
     $stmt->close();
+    
+    if ($user_type == 'tutor' || $user_type == 'learner') {
+        $deleted_check = $conn->prepare("SELECT * FROM $table WHERE email = ? AND is_deleted = 1");
+        $deleted_check->bind_param("s", $email);
+        $deleted_check->execute();
+        $deleted_result = $deleted_check->get_result();
+        
+        if ($deleted_result->num_rows === 1) {
+            header("Location: /iskol4rx/index.php?error=account_deactivated");
+            exit();
+        }
+        $deleted_check->close();
+    }
 }
 
 header("Location: /iskol4rx/index.php?error=invalid");

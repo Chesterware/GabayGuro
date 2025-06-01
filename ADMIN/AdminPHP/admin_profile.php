@@ -5,239 +5,96 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: ../../index.php");
     exit();
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutor Verification</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../AdminCSS/adminProfile.css">
-    <style>
-        .input-wrapper {
-            position: relative;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #666;
-            z-index: 2;
-        }
-        .password-edit-mode .toggle-password {
-            color: #003153;
-        }
-    </style>
-</head>
-<body>
-    <div class="sidebar">
-        <h2 class="admin-name">
-            <?php echo $first_name . ' ' . $middle_initial . ' ' . $last_name; ?>
-        </h2>
+$success_msg = null;
+$error_msg = null;
+
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    $success_msg = isset($_GET['msg']) ? urldecode($_GET['msg']) : "Operation completed successfully";
+} else if (isset($_GET['error']) && $_GET['error'] == 1) {
+    $error_msg = isset($_GET['msg']) ? urldecode($_GET['msg']) : "An error occurred";
+}
+
+$admin_id = $_SESSION['admin_id'];
+$sql = "SELECT * FROM admin WHERE admin_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $admin_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$admin = $result->fetch_assoc();
+$stmt->close();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['update_profile'])) {
+        $first_name = trim($_POST['first_name']);
+        $middle_initial = trim($_POST['middle_initial']);
+        $last_name = trim($_POST['last_name']);
         
-        <h3 class="sidebar-label">TAGAPAG-GABAY</h3>
-        <div class="separator"></div>
-
-        <form action="tutorVerification.php" method="GET">
-            <button type="submit" class="btn"><i class="fas fa-check-circle"></i>Tutor Verification</button>
-        </form>
-
-        <form action="admin_profile.php.php" method="GET">
-            <button type="submit" class="btn active"><i class="fas fa-user"></i>My Profile</button>
-        </form>
-
-        <form action="userActivities.php" method="GET">
-            <button type="submit" class="btn"><i class="fas fa-clipboard-list"></i>User Activities</button>
-        </form>
-
-        <form action="manageUser.php" method="GET">
-            <button type="submit" class="btn"><i class="fas fa-users-cog"></i>Manage User</button>
-        </form>
-
-        <div class="separator"></div>
-
-        <form action="/iskol4rx/api/logout.php" method="POST" style="margin: 0;">
-            <button type="submit" class="btn logout-btn">
-                <i class="fas fa-sign-out-alt"></i> Log Out
-            </button>
-        </form>
-    </div>
-
-    <div class="profile-container">
-        <!-- Header Form -->
-        <form class="profile-header">
-            <h2>My Profile</h2>
-        </form>
-
-        <form class="profile-form" action="api/updateProfile.php" method="POST" enctype="multipart/form-data">
-            <div class="form-content">
-                <div class="photo-container">
-                    <div class="photo-placeholder" id="photo-placeholder">
-                        <?php if ($profile_picture_url): ?>
-                            <img src="<?php echo $profile_picture_url; ?>" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 5px;">
-                        <?php else: ?>
-                            <i class="fas fa-user-circle" style="font-size: 150px; color: #ccc;"></i>
-                        <?php endif; ?>
-                    </div>
-                    <label class="photo-upload" for="file-input">
-                        Click to upload photo
-                        <input type="file" id="file-input" name="profile_photo" style="display: none;" accept="image/*">
-                    </label>
-                    
-                    <div id="confirm-buttons" style="display: none; margin-top: 10px;">
-                        <button type="button" id="cancelPhoto" class="cancel-photo">Cancel</button>
-                        <button type="button" id="savePhoto" class="save-photo">Save</button>
-                    </div>
-                </div>
-
-                <div class="form-fields">
-                    <div class="name-container">
-                        <div class="first-name">
-                            <label for="first_name">First Name</label>
-                            <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>" readonly required>
-                        </div>
-
-                        <div class="middle-initial">
-                            <label for="middle_initial">Middle Initial</label>
-                            <input type="text" id="middle_initial" name="middle_initial" value="<?php echo htmlspecialchars($middle_initial); ?>" readonly required maxlength="1">
-                        </div>
-                    </div>
-
-                    <div class="last-name">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>" readonly required>
-                    </div>
-
-                    <div class="email">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
-                    </div>
-
-                    <div class="password">
-                        <label for="password">Password</label>
-                        <div class="input-wrapper">
-                            <input type="password" id="password" name="password" value="••••••••" readonly>
-                            <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
-                        </div>
-                    </div>
-
-                    <div class="confirmPassword" style="display: none;">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <div class="input-wrapper">
-                            <input type="password" id="confirmPassword" name="confirmPassword">
-                            <i class="fas fa-eye-slash toggle-password" id="toggleConfirmPassword"></i>
-                        </div>
-                    </div>
-
-                    <button type="button" class="edit-btn" id="editProfile">EDIT</button>
-                    <div class="cancelSave">
-                        <button type="button" class="cancel-btn" id="cancelEdit" style="display: none;">CANCEL</button>
-                        <button type="submit" class="save-btn" id="saveProfile" style="display: none;">SAVE</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <script>
-        // Toggle password visibility
-        function togglePasswordVisibility(fieldId) {
-            const field = document.getElementById(fieldId);
-            const icon = document.getElementById(`toggle${fieldId.charAt(0).toUpperCase() + fieldId.slice(1)}`);
+        if (empty($first_name) || empty($last_name)) {
+            $redirect_url = "admin_profile.php?error=1&msg=" . urlencode("First name and last name are required");
+            header("Location: " . $redirect_url);
+            exit();
+        } else {
+            $update_sql = "UPDATE admin SET first_name = ?, middle_initial = ?, last_name = ?, updated_at = NOW() WHERE admin_id = ?";
+            $update_stmt = $conn->prepare($update_sql);
+            $update_stmt->bind_param("sssi", $first_name, $middle_initial, $last_name, $admin_id);
             
-            if (field.type === "password") {
-                field.type = "text";
-                icon.classList.replace("fa-eye-slash", "fa-eye");
+            if ($update_stmt->execute()) {
+                $redirect_url = "admin_profile.php?success=1&msg=" . urlencode("Profile updated successfully");
+                $update_stmt->close();
+                header("Location: " . $redirect_url);
+                exit();
             } else {
-                field.type = "password";
-                icon.classList.replace("fa-eye", "fa-eye-slash");
+                $redirect_url = "admin_profile.php?error=1&msg=" . urlencode("Error updating profile: " . $conn->error);
+                $update_stmt->close();
+                header("Location: " . $redirect_url);
+                exit();
             }
         }
-
-        // Edit profile functionality
-        document.getElementById('editProfile').addEventListener('click', function() {
-            // Enable editing of fields
-            document.getElementById('first_name').readOnly = false;
-            document.getElementById('middle_initial').readOnly = false;
-            document.getElementById('last_name').readOnly = false;
-            
-            // Change password field to empty and editable
-            const passwordField = document.getElementById('password');
-            passwordField.readOnly = false;
-            passwordField.value = '';
-            passwordField.placeholder = 'Enter new password';
-            
-            // Show confirm password field
-            document.querySelector('.confirmPassword').style.display = 'block';
-            
-            // Show cancel/save buttons
-            document.getElementById('cancelEdit').style.display = 'inline-block';
-            document.getElementById('saveProfile').style.display = 'inline-block';
-            
-            // Hide edit button
-            this.style.display = 'none';
-            
-            // Add password-edit-mode class for styling
-            document.querySelector('.password').classList.add('password-edit-mode');
-        });
-
-        // Cancel edit functionality
-        document.getElementById('cancelEdit').addEventListener('click', function() {
-            // Reset all fields to original values
-            document.getElementById('first_name').readOnly = true;
-            document.getElementById('middle_initial').readOnly = true;
-            document.getElementById('last_name').readOnly = true;
-            
-            // Reset password field
-            const passwordField = document.getElementById('password');
-            passwordField.readOnly = true;
-            passwordField.type = 'password';
-            passwordField.value = '••••••••';
-            passwordField.placeholder = '';
-            
-            // Hide confirm password field
-            document.querySelector('.confirmPassword').style.display = 'none';
-            
-            // Reset toggle icons
-            document.getElementById('togglePassword').classList.replace("fa-eye", "fa-eye-slash");
-            document.getElementById('toggleConfirmPassword').classList.replace("fa-eye", "fa-eye-slash");
-            
-            // Show edit button, hide cancel/save
-            document.getElementById('editProfile').style.display = 'inline-block';
-            this.style.display = 'none';
-            document.getElementById('saveProfile').style.display = 'none';
-            
-            // Remove password-edit-mode class
-            document.querySelector('.password').classList.remove('password-edit-mode');
-        });
-
-        // Photo upload functionality
-        document.getElementById('file-input').addEventListener('change', function(e) {
-            if (this.files && this.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('photo-placeholder').innerHTML = 
-                        `<img src="${e.target.result}" alt="Preview" style="width: 150px; height: 150px; border-radius: 5px;">`;
-                    document.getElementById('confirm-buttons').style.display = 'block';
+    }
+    
+    if (isset($_POST['update_password'])) {
+        $current_password = $_POST['current_password'];
+        $new_password = $_POST['new_password'];
+        $confirm_password = $_POST['confirm_password'];
+        
+        if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
+            $redirect_url = "admin_profile.php?error=1&msg=" . urlencode("All password fields are required");
+            header("Location: " . $redirect_url);
+            exit();
+        } elseif ($new_password !== $confirm_password) {
+            $redirect_url = "admin_profile.php?error=1&msg=" . urlencode("New passwords do not match");
+            header("Location: " . $redirect_url);
+            exit();
+        } elseif (!password_verify($current_password, $admin['password'])) {
+            $redirect_url = "admin_profile.php?error=1&msg=" . urlencode("Current password is incorrect");
+            header("Location: " . $redirect_url);
+            exit();
+        } else {
+            $password_regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/";
+            if (!preg_match($password_regex, $new_password)) {
+                $redirect_url = "admin_profile.php?error=1&msg=" . urlencode("Password must be at least 8 characters and include at least 1 uppercase letter, 1 lowercase letter, and 1 number.");
+                header("Location: " . $redirect_url);
+                exit();
+            } else {
+                $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+                $update_sql = "UPDATE admin SET password = ?, updated_at = NOW() WHERE admin_id = ?";
+                $update_stmt = $conn->prepare($update_sql);
+                $update_stmt->bind_param("si", $hashed_password, $admin_id);
+                
+                if ($update_stmt->execute()) {
+                    $redirect_url = "admin_profile.php?success=1&msg=" . urlencode("Password updated successfully");
+                    $update_stmt->close();
+                    header("Location: " . $redirect_url);
+                    exit();
+                } else {
+                    $redirect_url = "admin_profile.php?error=1&msg=" . urlencode("Error updating password: " . $conn->error);
+                    $update_stmt->close();
+                    header("Location: " . $redirect_url);
+                    exit();
                 }
-                reader.readAsDataURL(this.files[0]);
             }
-        });
-
-        // Initialize password toggle event listeners
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            if (!document.getElementById('password').readOnly) {
-                togglePasswordVisibility('password');
-            }
-        });
-
-        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
-            togglePasswordVisibility('confirmPassword');
-        });
-    </script>
-</body>
-</html>
+        }
+    }
+}
+?>

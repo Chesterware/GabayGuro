@@ -1,0 +1,217 @@
+.content-container {
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 100px; 
+    transition: margin-left 0.3s ease;
+}
+
+body:not(.sidebar-collapsed) .content-container {
+    margin-left: 240px;
+}
+
+body.sidebar-collapsed .content-container {
+    margin-left: 0;
+}
+        
+.profile-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.profile-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    min-width: 300px;
+}
+
+.profile-section h2 {
+    color: #003153;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 1.4rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #444;
+    text-align: left;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-align: left; 
+    box-sizing: border-box;
+}
+
+.form-group input:disabled {
+    background-color: #f8f8f8;
+    color: #666;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: flex-start;
+}
+
+.edit-btn, .cancel-btn, .update-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+}
+
+.edit-btn {
+    background-color: #003153;
+    color: white;
+    margin-right: auto;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+    color: #333;
+}
+
+.update-btn {
+    background-color: #003153;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #002244;
+}
+
+.cancel-btn:hover {
+    background-color: #bbb;
+}
+
+.update-btn:hover {
+    background-color: #002244;
+}
+
+.alert {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    opacity: 1;
+    transition: all 0.5s ease;
+    font-weight: 500;
+    position: relative;
+    border-left-width: 4px;
+    border-left-style: solid;
+}
+
+.alert-success {
+    background-color: rgba(0, 95, 143, 0.1);
+    color: #003153;
+    border: 1px solid rgba(0, 95, 143, 0.3);
+    border-left-color: #005F8F;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-left-color: #dc3545;
+}
+
+.alert.hide {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.readonly-field {
+    background-color: #f8f8f8;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #666;
+    text-align: left;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#password-form h3 {
+    margin-top: 30px;
+    color: #003153;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+input[type="password"]::placeholder {
+    text-align: left;
+    color: #aaa;
+}
+
+/* Success message animation */
+@keyframes successPulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 95, 143, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 95, 143, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 95, 143, 0); }
+}
+
+.alert-success {
+    animation: successPulse 2s infinite;
+}
+
+/* Add success icon */
+.alert-success::before {
+    content: "✓";
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+    color: #005F8F;
+}
+
+@media (max-width: 992px) {
+    body:not(.sidebar-collapsed) .content-container {
+        margin-left: 0;
+        margin-top: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+    }
+    
+    .profile-section {
+        width: 100%;
+    }
+    
+    .profile-actions {
+        flex-wrap: wrap;
+    }
+    
+    .profile-actions button {
+        flex: 1;
+        min-width: 120px;
+    }
+}

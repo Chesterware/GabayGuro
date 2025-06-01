@@ -34,6 +34,7 @@ $sql = "SELECT
         FROM tutor t
         LEFT JOIN tutor_specializations ts ON t.tutor_id = ts.tutor_id
         LEFT JOIN specializations s ON ts.specialization_id = s.specialization_id
+        WHERE t.is_deleted = 0
         ORDER BY t.status, t.updated_at DESC";
 
 $result = $conn->query($sql);
