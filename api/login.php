@@ -16,7 +16,6 @@ foreach ($user_types as $user_type) {
     $table = $user_type;
     $id_field = $user_type . '_id';
     
-    // Only select non-deleted accounts for tutor and learner
     if ($user_type == 'tutor' || $user_type == 'learner') {
         $stmt = $conn->prepare("SELECT * FROM $table WHERE email = ? AND (is_deleted = 0 OR is_deleted IS NULL)");
     } else {
@@ -31,7 +30,6 @@ foreach ($user_types as $user_type) {
         $user = $result->fetch_assoc();
         
         if (password_verify($password, $user['password'])) {
-            // Check if account is soft-deleted (additional safety check)
             if (($user_type == 'tutor' || $user_type == 'learner') && 
                 isset($user['is_deleted']) && $user['is_deleted'] == 1) {
                 header("Location: /iskol4rx/index.php?error=account_deactivated");
