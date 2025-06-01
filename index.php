@@ -13,7 +13,14 @@ if (isset($_SESSION['admin_id'])) {
     exit();
 }
 
-$error_message = isset($_GET['error']) ? "Invalid email or password!" : "";
+$error_message = "";
+if (isset($_GET['error'])) {
+    if ($_GET['error'] === 'account_deactivated') {
+        $error_message = "This account has been deactivated. Please contact support for assistance.";
+    } else {
+        $error_message = "Invalid email or password!";
+    }
+}
 $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You have been successfully logged out." : "";
 ?>
 
@@ -45,7 +52,7 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
 
         <!--
         <?php
-            $password = "Learnerluise1";
+            $password = "Tutorjeilo1";
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             echo $hashedPassword;
         ?>

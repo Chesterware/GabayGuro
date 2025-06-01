@@ -28,6 +28,9 @@ if (isset($_SESSION['tutor_id'])) {
 
         $tutorData = [
             'tutor_id' => $row['tutor_id'],
+            'first_name' => $row['first_name'],
+            'middle_initial' => $row['middle_initial'],
+            'last_name' => $row['last_name'],
             'full_name' => $row['first_name'] . ' ' . ($row['middle_initial'] ? $row['middle_initial'] . '. ' : '') . $row['last_name'],
             'email' => $row['email'],
             'password' => $row['password'],
@@ -35,8 +38,6 @@ if (isset($_SESSION['tutor_id'])) {
             'profile_picture' => $profileImageSrc,
             'educational_attainment' => $row['educational_attainment'],
             'years_of_experience' => $row['years_of_experience'],
-            'diploma' => $row['diploma'],
-            'other_certificates' => $row['other_certificates'],
             'rate_per_hour' => $row['rate_per_hour'],
             'rate_per_session' => $row['rate_per_session'],
             'num_bookings' => $row['num_bookings'],
@@ -45,13 +46,11 @@ if (isset($_SESSION['tutor_id'])) {
         ];
     }
 
-
     $stmt->close();
     $notifications = getTutorNotifications($tutor_id);
     $reviews = getTutorReviews($tutor_id);
 }
 
-// -------------------- NOTIFICATIONS -------------------- //
 function getTutorNotifications($tutor_id) {
     global $conn;
     $notifications = [];

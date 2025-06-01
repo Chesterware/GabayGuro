@@ -42,7 +42,7 @@ body {
 .btn {
     width: 100%;
     padding: 15px;
-    background-color: #FFFFFF;
+    background-color: #003153;
     border: 2px solid #003153;
     color: #003153;
     text-align: left;
@@ -277,6 +277,10 @@ select:disabled {
     color: #003153;
     opacity: 0.7;
     font-size: 16px;
+}
+
+.toggle-password.hidden {
+    display: none !important;
 }
 
 .edit-container {

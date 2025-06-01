@@ -1,29 +1,37 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once '../../db_connection.php';
 
 $learnerData = [];
 
 if (isset($_SESSION['learner_id'])) {
     $learner_id = $_SESSION['learner_id'];
-    $sql = "SELECT learner_id, first_name, middle_initial, last_name, email, password, birthdate, school_affiliation, grade_level, strand FROM learner WHERE learner_id = ?";
+    $sql = "SELECT first_name, middle_initial, last_name, email, birthdate, 
+                   school_affiliation, grade_level, strand 
+            FROM learner 
+            WHERE learner_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $learner_id);
     $stmt->execute();
-    $stmt->bind_result($learner_id, $first, $mi, $last, $email, $password, $birthdate, $school_affiliation, $grade_level, $strand);
-
-    if ($stmt->fetch()) {
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
         $learnerData = [
-            'learner_id' => $learner_id,
-            'full_name' => $first . ' ' . $mi . '. ' . $last,
-            'email' => $email,
-            'password' => $password,
-            'birthdate' => $birthdate,
-            'school_affiliation' => $school_affiliation,
-            'grade_level' => $grade_level,
-            'strand' => $strand
+            'full_name' => $row['first_name'] . ' ' . $row['middle_initial'] . '. ' . $row['last_name'],
+            'first_name' => $row['first_name'],
+            'middle_name' => $row['middle_initial'],
+            'last_name' => $row['last_name'],
+            'email' => $row['email'],
+            'birthdate' => $row['birthdate'],
+            'school_affiliation' => $row['school_affiliation'],
+            'grade_level' => $row['grade_level'],
+            'strand' => $row['strand']
         ];
     }
-
     $stmt->close();
 }
 ?>

@@ -62,29 +62,32 @@ if (!isset($_SESSION['tutor_id'])) {
             <label>Tutor Information</label>
 
             <div class="name-container">
-                <input type="text" id="first-name" name="first-name" placeholder="First Name" readonly required>
-                <input type="text" id="middle-name" name="middle-name" placeholder="Middle Name" readonly required>
+                <input type="text" id="first-name" name="first-name" value="<?php echo htmlspecialchars($tutorData['first_name'] ?? ''); ?>" placeholder="First Name" readonly required>
+                <input type="text" id="middle-name" name="middle-name" value="<?php echo htmlspecialchars($tutorData['middle_initial'] ?? ''); ?>" placeholder="Middle Initial" readonly maxlength="1">
             </div>
 
             <div class="name-container">
-                <input type="text" id="last-name" name="last-name" placeholder="Last Name" readonly required>
-                <input type="date" id="birthdate" name="birthdate" placeholder="Birthdate" readonly required>
+                <input type="text" id="last-name" name="last-name" value="<?php echo htmlspecialchars($tutorData['last_name'] ?? ''); ?>" placeholder="Last Name" readonly required>
+                <input type="date" id="birthdate" name="birthdate" value="<?php echo htmlspecialchars($tutorData['birthdate'] ?? ''); ?>" placeholder="Birthdate" readonly required>
             </div>
 
-            <input type="text" id="school-affiliation" name="school-affiliation" placeholder="Enter School Affiliation" readonly required>
-
-            <select id="grade-level" name="grade-level" disabled required>
-                <option value="" disabled selected>Select Grade Level</option>
-                <option value="grade-1">Grade 1</option>
-                <option value="grade-2">Grade 2</option>
-                <option value="grade-3">Grade 3</option>
+            <select id="educational-attainment" name="educational-attainment" disabled required>
+                <option value="">Select Educational Attainment</option>
+                <option value="Junior High School Graduate" <?= ($tutorData['educational_attainment'] ?? '') === 'Junior High School Graduate' ? 'selected' : '' ?>>Junior High School Graduate</option>
+                <option value="Senior High School Graduate" <?= ($tutorData['educational_attainment'] ?? '') === 'Senior High School Graduate' ? 'selected' : '' ?>>Senior High School Graduate</option>
+                <option value="College Undergraduate" <?= ($tutorData['educational_attainment'] ?? '') === 'College Undergraduate' ? 'selected' : '' ?>>College Undergraduate</option>
+                <option value="Associate's Degree" <?= ($tutorData['educational_attainment'] ?? '') === 'Associate\'s Degree' ? 'selected' : '' ?>>Associate's Degree</option>
+                <option value="Bachelor's Degree" <?= ($tutorData['educational_attainment'] ?? '') === 'Bachelor\'s Degree' ? 'selected' : '' ?>>Bachelor's Degree</option>
+                <option value="Master's Degree" <?= ($tutorData['educational_attainment'] ?? '') === 'Master\'s Degree' ? 'selected' : '' ?>>Master's Degree</option>
+                <option value="Doctoral Degree" <?= ($tutorData['educational_attainment'] ?? '') === 'Doctoral Degree' ? 'selected' : '' ?>>Doctoral Degree</option>
             </select>
 
-            <select id="strand" name="strand" disabled required>
-                <option value="" disabled selected>Select Strand</option>
-                <option value="strand-1">Strand 1</option>
-                <option value="strand-2">Strand 2</option>
-                <option value="strand-3">Strand 3</option>
+            <select id="years-experience" name="years-experience" disabled required>
+                <option value="">Select Years of Experience</option>
+                <option value="Less than 1 year" <?= ($tutorData['years_of_experience'] ?? '') === 'Less than 1 year' ? 'selected' : '' ?>>Less than 1 year</option>
+                <option value="1-3 years" <?= ($tutorData['years_of_experience'] ?? '') === '1-3 years' ? 'selected' : '' ?>>1-3 years</option>
+                <option value="4-6 years" <?= ($tutorData['years_of_experience'] ?? '') === '4-6 years' ? 'selected' : '' ?>>4-6 years</option>
+                <option value="7+ years" <?= ($tutorData['years_of_experience'] ?? '') === '7+ years' ? 'selected' : '' ?>>7+ years</option>
             </select>
 
             <div class="edit-container">
@@ -92,219 +95,41 @@ if (!isset($_SESSION['tutor_id'])) {
             </div>
             <div class="cancelSave" style="display: none;">
                 <button type="button" class="edit-button cancel-btn" id="cancelProfileEdit">CANCEL</button>
-                <button type="submit" class="edit-button save-btn" id="saveProfileInfo">SAVE</button>
+                <button type="button" class="edit-button save-btn" id="saveProfileInfo">SAVE</button>
             </div>
         </div>
 
         <div class="tutor-email-password">
-            <label>Change Password</label>
+    <label>Change Password</label>
 
-            <input type="email" id="email" name="email" placeholder="Enter Email Address" readonly>
+    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($tutorData['email'] ?? ''); ?>" placeholder="Enter Email Address" readonly>
 
-            <div class="input-wrapper">
-                <input type="password" id="password" name="password" value="••••••••" readonly placeholder="Enter Password">
-                <i class="fas fa-eye-slash toggle-password hidden" id="togglePassword"></i>
-            </div>
+    <div class="input-wrapper" id="current-password-wrapper" style="display: none;">
+        <input type="password" id="current-password" name="current_password" placeholder="Current Password">
+        <i class="fas fa-eye-slash toggle-password hidden" id="toggleCurrentPassword"></i>
+    </div>
 
-            <div class="confirmPassword" style="display: none;">
-                <div class="input-wrapper">
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
-                    <i class="fas fa-eye-slash toggle-password hidden" id="toggleConfirmPassword"></i>
-                </div>
-            </div>
+    <div class="input-wrapper">
+        <input type="password" id="password" name="password" value="••••••••" readonly placeholder="New Password">
+        <i class="fas fa-eye-slash toggle-password hidden" id="togglePassword"></i>
+    </div>
 
-            <div class="edit-container">
-                <button type="button" class="edit-button" id="editPassword">EDIT</button>
-            </div>
-            <div class="cancelSave" style="display: none;">
-                <button type="button" class="edit-button cancel-btn" id="cancelPasswordEdit">CANCEL</button>
-                <button type="submit" class="edit-button save-btn" id="savePassword">SAVE</button>
-            </div>
+    <div class="confirmPassword" style="display: none;">
+        <div class="input-wrapper">
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+            <i class="fas fa-eye-slash toggle-password hidden" id="toggleConfirmPassword"></i>
         </div>
     </div>
 
-    <script>
-    function toggleSidebar() {
-        const sidebar = document.querySelector('.sidebar');
-        const header = document.querySelector('.header-title');
-        const profileContainer = document.querySelector('.profile-container');
+    <div class="edit-container">
+        <button type="button" class="edit-button" id="editPassword">EDIT</button>
+    </div>
+    <div class="cancelSave" style="display: none;">
+        <button type="button" class="edit-button cancel-btn" id="cancelPasswordEdit">CANCEL</button>
+        <button type="button" class="edit-button save-btn" id="savePassword">SAVE</button>
+    </div>
+</div>
 
-        sidebar.classList.toggle('closed');
-        header.classList.toggle('full-width');
-        profileContainer.classList.toggle('sidebar-open');
-    }
-
-    function updateDateTime() {
-            const now = new Date();
-            const date = now.toLocaleDateString();
-            const time = now.toLocaleTimeString();
-            document.getElementById('datetime').innerHTML = `${date} ${time}`;
-        }
-
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
-
-    function toggleFields(fields, enable) {
-        fields.forEach(field => {
-            if (field.tagName === 'SELECT') {
-                field.disabled = !enable;
-                field.style.backgroundColor = enable ? 'transparent' : '#f0f0f0';
-            } else {
-                field.readOnly = !enable;
-            }
-        });
-    }
-
-        function updateDateTime() {
-            const now = new Date();
-            const date = now.toLocaleDateString();
-            const time = now.toLocaleTimeString();
-            document.getElementById('datetime').innerHTML = `${date} ${time}`;
-        }
-
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
-
-        function toggleFields(fields, enable) {
-            fields.forEach(field => {
-                if (field.tagName === 'SELECT') {
-                    field.disabled = !enable;
-                    field.style.backgroundColor = enable ? 'transparent' : '#f0f0f0';
-                } else {
-                    field.readOnly = !enable;
-                }
-            });
-        }
-
-        const editProfileBtn = document.getElementById('editProfileInfo');
-        const cancelProfileBtn = document.getElementById('cancelProfileEdit');
-        const saveProfileBtn = document.getElementById('saveProfileInfo');
-        const profileCancelSave = cancelProfileBtn.parentElement;
-
-        const profileFields = [
-            document.getElementById('first-name'),
-            document.getElementById('middle-name'),
-            document.getElementById('last-name'),
-            document.getElementById('birthdate'),
-            document.getElementById('school-affiliation'),
-            document.getElementById('grade-level'),
-            document.getElementById('strand')
-        ];
-
-        let profileBackup = {};
-
-        editProfileBtn.addEventListener('click', () => {
-            toggleFields(profileFields, true);
-            profileCancelSave.style.display = 'flex';
-            editProfileBtn.style.display = 'none';
-
-            profileFields.forEach(field => profileBackup[field.id] = field.value);
-        });
-
-        cancelProfileBtn.addEventListener('click', () => {
-            toggleFields(profileFields, false);
-            profileCancelSave.style.display = 'none';
-            editProfileBtn.style.display = 'block';
-
-            profileFields.forEach(field => field.value = profileBackup[field.id]);
-        });
-
-        saveProfileBtn.addEventListener('click', () => {
-            toggleFields(profileFields, false);
-            profileCancelSave.style.display = 'none';
-            editProfileBtn.style.display = 'block';
-        });
-
-        const editPasswordBtn = document.getElementById('editPassword');
-        const cancelPasswordBtn = document.getElementById('cancelPasswordEdit');
-        const savePasswordBtn = document.getElementById('savePassword');
-        const passwordCancelSave = cancelPasswordBtn.parentElement;
-
-        const emailField = document.getElementById('email');
-        const passwordField = document.getElementById('password');
-        const confirmPasswordWrapper = document.querySelector('.confirmPassword');
-        const confirmPasswordField = document.getElementById('confirmPassword');
-
-        const togglePassword = document.getElementById('togglePassword');
-        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-
-        let passwordBackup = {
-            email: '',
-            password: ''
-        };
-
-        editPasswordBtn.addEventListener('click', () => {
-            emailField.readOnly = true;
-            passwordField.readOnly = false;
-            confirmPasswordWrapper.style.display = 'block';
-            passwordCancelSave.style.display = 'flex';
-            editPasswordBtn.style.display = 'none';
-
-            passwordField.value = '';
-            confirmPasswordField.value = '';
-
-            togglePassword.classList.remove('hidden');
-            toggleConfirmPassword.classList.remove('hidden');
-
-            passwordBackup.email = emailField.value;
-            passwordBackup.password = passwordField.value;
-        });
-
-        cancelPasswordBtn.addEventListener('click', () => {
-            emailField.readOnly = true;
-            passwordField.readOnly = true;
-            confirmPasswordWrapper.style.display = 'none';
-            passwordCancelSave.style.display = 'none';
-            editPasswordBtn.style.display = 'block';
-
-            emailField.value = passwordBackup.email;
-            passwordField.value = passwordBackup.password;
-            confirmPasswordField.value = '';
-
-            togglePassword.classList.add('hidden');
-            toggleConfirmPassword.classList.add('hidden');
-
-            passwordField.type = 'password';
-            confirmPasswordField.type = 'password';
-        });
-
-        savePasswordBtn.addEventListener('click', () => {
-            emailField.readOnly = true;
-            passwordField.readOnly = true;
-            confirmPasswordWrapper.style.display = 'none';
-            passwordCancelSave.style.display = 'none';
-            editPasswordBtn.style.display = 'block';
-
-            togglePassword.classList.add('hidden');
-            toggleConfirmPassword.classList.add('hidden');
-
-            passwordField.type = 'password';
-            confirmPasswordField.type = 'password';
-        });
-
-        function syncTogglePasswordVisibility() {
-            const isVisible = passwordField.type === 'text' || confirmPasswordField.type === 'text';
-            const newType = isVisible ? 'password' : 'text';
-
-            passwordField.type = newType;
-            confirmPasswordField.type = newType;
-
-            [togglePassword, toggleConfirmPassword].forEach(icon => {
-                icon.classList.toggle('fa-eye', newType === 'text');
-                icon.classList.toggle('fa-eye-slash', newType === 'password');
-            });
-        }
-
-        togglePassword.addEventListener('click', syncTogglePasswordVisibility);
-        toggleConfirmPassword.addEventListener('click', syncTogglePasswordVisibility);
-    </script>
-    
-    <script>
-        if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(() => console.log('Service Worker registered!'))
-            .catch(err => console.error('Service Worker registration failed:', err));
-        }
-    </script> 
+    <script src="../TutorJS/tutor_profile.js"></script>
 </body>
 </html>
