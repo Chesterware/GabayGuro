@@ -21,9 +21,9 @@ if (isset($_SESSION['learner_id'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $learnerData = [
-            'full_name' => $row['first_name'] . ' ' . $row['middle_initial'] . '. ' . $row['last_name'],
+            'full_name' => $row['first_name'] . ($row['middle_initial'] ? ' ' . $row['middle_initial'] . '.' : '') . ' ' . $row['last_name'],
             'first_name' => $row['first_name'],
-            'middle_name' => $row['middle_initial'],
+            'middle_initial' => $row['middle_initial'],
             'last_name' => $row['last_name'],
             'email' => $row['email'],
             'birthdate' => $row['birthdate'],

@@ -233,13 +233,19 @@ textarea {
     background-color: #ffffff;
     border-radius: 8px;
     width: 100%;
-    margin: 20px 10px 0 10px;
+    margin: 20px 10px 0 240px;
     padding: 15px;
     text-align: left;
     color: #003153;
     font-weight: bold;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all ease 0.3s;
 }
+
+body.sidebar-collapsed .no-bookings{
+    margin: 20px 10px 15px 10px;
+}
+
 @media (max-width: 767px) {
     .booking-status-buttons {
         grid-template-columns: repeat(2, 1fr);

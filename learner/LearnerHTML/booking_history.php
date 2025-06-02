@@ -12,13 +12,15 @@ require_once '../LearnerPHP/auth_learner.php';
     <title>Find Tutors</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#003153">
-    <link rel="icon" href="/GabayGuroLogo.png">
-    <link rel="icon" href="GabayGuroLogo.png" type="image/png">
+    <link rel="icon" href="../../GabayGuroLogo.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../LearnerCSS/index.css" />
     <link rel="stylesheet" href="../LearnerCSS/booking_history.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<style>
+
+</style>
 <body class="sidebar-collapsed">
     <div class="header-title">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">

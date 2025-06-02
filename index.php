@@ -32,9 +32,9 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
     <title>Gabay Guro - Login</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#003153">
-    <link rel="icon" href="/GabayGuroLogo.png">
     <link rel="icon" href="GabayGuroLogo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400&family=Raleway:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/iskol4rx/styles/login.css">
 </head>
 <body>
@@ -49,14 +49,6 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
     
     <main class="login-container">
         <h2 class="login-title">Please log in to continue</h2>
-
-        <!--
-        <?php
-            $password = "Tutorjeilo1";
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            echo $hashedPassword;
-        ?>
-        -->
 
         <?php if (!empty($logout_message)): ?>
             <div class="alert alert-success">
@@ -79,11 +71,7 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
             <div class="form-group">
                 <input type="password" class="form-input" id="password" name="password" placeholder=" " required>
                 <label class="form-label">Password</label>
-                <div class="password-toggle" id="togglePassword"></div>
-            </div>
-
-            <div class="forgot-password">
-                <a href="forgotPassword.php">Forgot your password?</a>
+                <i class="fas fa-eye-slash password-toggle" id="togglePassword"></i>
             </div>
 
             <button type="submit" class="login-btn">LOG IN</button>
@@ -95,11 +83,23 @@ $logout_message = isset($_GET['logout']) && $_GET['logout'] === 'success' ? "You
     </main>
     
     <script>
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(() => console.log('Service Worker registered!'))
-            .catch(err => console.error('Service Worker registration failed:', err));
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(() => console.log('Service Worker registered!'))
+                .catch(err => console.error('Service Worker registration failed:', err));
         }
+
+        // Password Toggle Functionality
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
     </script> 
 </body>
 </html>
